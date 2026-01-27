@@ -1,0 +1,38 @@
+[build]
+  # Build command
+  command = "npm run build"
+  # Directory to deploy (Vite outputs to dist)
+  publish = "dist"
+
+# Redirect rules for React Router (SPA)
+# This ensures all routes work on refresh
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Force HTTPS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Redirect www to non-www (lockerroomtalks.net)
+[[redirects]]
+  from = "https://www.lockerroomtalks.net/*"
+  to = "https://lockerroomtalks.net/:splat"
+  status = 301
+  force = true
+
+# Redirect http to https
+[[redirects]]
+  from = "http://lockerroomtalks.net/*"
+  to = "https://lockerroomtalks.net/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.lockerroomtalks.net/*"
+  to = "https://lockerroomtalks.net/:splat"
+  status = 301
+  force = true
