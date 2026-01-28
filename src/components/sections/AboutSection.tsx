@@ -23,14 +23,12 @@ const AboutSection = () => {
           </h2>
 
           <p className="body-text mb-8">
-            Locker Room Talk is a documentary video-podcast shaped around long-form conversation. 
+            <strong>Locker Room Talks</strong> is a documentary video-podcast shaped around long-form conversation. 
             Each episode brings together voices from different backgrounds living in Finland, 
-            opening space for thoughtful dialogue shaped by lived experience, cultural context, and reflection.
-          </p>
-
-          <p className="body-text mb-10 italic">
-            This is not a commentary about immigration. It is a space for lived experience, 
-            reflection, and exchange.
+            opening space for thoughtful dialogue shaped by lived experience, cultural context, and reflection. 
+            Through conversation and carefully curated visual inserts, the series offers perspectives 
+            worth listening to — not to explain, but to understand. This is not a commentary about immigration. 
+            It is a space for lived experience, reflection, and exchange. Currently in production. Releasing early 2026.
           </p>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-2 mb-12">
