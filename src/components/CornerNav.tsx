@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
+import lrtLogo from "@/assets/lrt-logo.png";
 
 const menuItems = [
   { label: "home", href: "#hero", dotColor: "bg-yellow-400" },
@@ -22,10 +23,12 @@ const CornerNav = () => {
   return (
     <>
       {/* Logo Corner */}
-      <div className="corner-logo">
-        <span className="text-primary-foreground font-bold text-lg md:text-xl tracking-tight">
-          LRT
-        </span>
+      <div className="corner-logo flex items-center justify-center p-1">
+        <img
+          src={lrtLogo}
+          alt="Locker Room Talks"
+          className="w-full h-full object-contain max-w-[60px] max-h-[60px] md:max-w-[72px] md:max-h-[72px]"
+        />
       </div>
 
       {/* Menu Corner */}

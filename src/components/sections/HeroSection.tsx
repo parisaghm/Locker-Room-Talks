@@ -1,6 +1,13 @@
+import { useState, useCallback } from "react";
 import ScrollArrow from "../ScrollArrow";
 
 const HeroSection = () => {
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  const handleVideoError = useCallback(() => {
+    setVideoFailed(true);
+  }, []);
+
   return (
     <section id="hero" className="section-full flex flex-col items-center justify-center relative px-6 py-20">
       {/* Centered Content */}
@@ -10,34 +17,96 @@ const HeroSection = () => {
           <span className="inline-block w-8 h-8 md:w-10 md:h-10 rounded-full" style={{ backgroundColor: '#a00303' }}></span>
         </div>
 
-        {/* Title with elegant gradient background */}
-        <div className="relative mb-6 inline-block">
-          {/* Minimal background element behind title - documentary style */}
-          <div 
-            className="absolute inset-0 -z-10 rounded-sm"
+        {/* Title block — video visible only inside the text (mask) */}
+        <div
+          className="relative mb-6 inline-block overflow-hidden rounded-sm title-video-mask-wrapper"
+          style={{
+            padding: '0.5rem 1rem',
+          }}
+        >
+          {/* Text for layout and semantics — hidden visually, keeps box size and a11y */}
+          <h1
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none whitespace-nowrap px-4"
             style={{
-              background: 'linear-gradient(180deg, rgba(250, 248, 245, 0.4) 0%, rgba(240, 238, 235, 0.6) 100%)',
-              padding: '0.5rem 1rem',
-              margin: '-0.5rem -1rem',
-              backdropFilter: 'blur(2px)',
-            }}
-          />
-          
-          {/* Title with elegant gold gradient text */}
-          <h1 
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none whitespace-nowrap px-4"
-            style={{
-              background: 'linear-gradient(135deg, #d4af37 0%, #f4d03f 25%, #d4af37 50%, #b8941f 75%, #d4af37 100%)',
-              backgroundSize: '200% 200%',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent',
-              animation: 'gradient-shift 8s ease infinite',
               letterSpacing: '-0.02em',
+              visibility: 'hidden',
+              margin: 0,
             }}
           >
             Locker Room Talks
           </h1>
+
+          {/* SVG mask definition — text shape only (white = visible); font-size matches title */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl"
+            aria-hidden
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <mask id="titleVideoMask">
+                <rect width="100%" height="100%" fill="black" />
+                <text
+                  x="50%"
+                  y="50%"
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fill="white"
+                  fontFamily="'DM Sans', system-ui, sans-serif"
+                  fontWeight="bold"
+                  fontSize="1em"
+                  letterSpacing="-0.02em"
+                >
+                  Locker Room Talks
+                </text>
+              </mask>
+            </defs>
+          </svg>
+
+          {/* Video layer — masked so video shows only inside the text */}
+          <div
+            className="absolute inset-0 z-0 overflow-hidden rounded-sm title-video-mask-layer"
+            style={{
+              WebkitMaskImage: 'url(#titleVideoMask)',
+              maskImage: 'url(#titleVideoMask)',
+              WebkitMaskSize: '100% 100%',
+              maskSize: '100% 100%',
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'center',
+              maskPosition: 'center',
+            }}
+          >
+            {!videoFailed ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover object-center min-w-full min-h-full"
+                aria-hidden
+                onError={handleVideoError}
+              >
+                <source src="/videos/hero-bg.mp4" type="video/mp4" />
+              </video>
+            ) : null}
+            {/* Fallback when video fails */}
+            <div
+              className="absolute inset-0 w-full h-full rounded-sm"
+              style={{
+                background: 'linear-gradient(180deg, rgba(250, 248, 245, 0.4) 0%, rgba(240, 238, 235, 0.6) 100%)',
+              }}
+            />
+            {/* Semi-transparent overlay for readability (only when video is showing) */}
+            {!videoFailed && (
+              <div
+                className="absolute inset-0 w-full h-full rounded-sm bg-black"
+                style={{ opacity: 0.45 }}
+                aria-hidden
+              />
+            )}
+          </div>
+
         </div>
 
         {/* Tagline */}

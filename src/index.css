@@ -147,6 +147,23 @@
     @apply text-sm tracking-wide text-muted-foreground;
   }
 
+  /* Video-in-text logo mask — sharp edges, optional shadow */
+  .title-video-mask-wrapper {
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-primary);
+  }
+
+  .title-video-mask-svg text {
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+
+  .title-video-mask-layer {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+  }
+
   /* Section Layout */
   .section-full {
     @apply min-h-screen w-full relative;
