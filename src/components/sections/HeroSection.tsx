@@ -19,18 +19,23 @@ const HeroSection = () => {
 
         {/* Title block — video visible only inside the text (mask) */}
         <div
-          className="relative mb-6 inline-block overflow-hidden rounded-sm title-video-mask-wrapper"
+          className="relative mb-6 w-full flex justify-center rounded-sm title-video-mask-wrapper"
           style={{
-            padding: '0.5rem 1rem',
+            padding: '0.5rem 0',
+            overflow: 'visible',
           }}
         >
           {/* Text for layout and semantics — hidden visually, keeps box size and a11y */}
           <h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none whitespace-nowrap px-4"
+            className="hero-title font-bold tracking-tight px-2"
             style={{
               letterSpacing: '-0.02em',
               visibility: 'hidden',
               margin: 0,
+              whiteSpace: 'nowrap',
+              overflow: 'visible',
+              textOverflow: 'clip',
+              lineHeight: 1,
             }}
           >
             Locker Room Talks
@@ -38,7 +43,7 @@ const HeroSection = () => {
 
           {/* SVG mask definition — text shape only (white = visible); font-size matches title */}
           <svg
-            className="absolute inset-0 w-full h-full pointer-events-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl"
+            className="absolute inset-0 w-full h-full pointer-events-none hero-title"
             aria-hidden
             xmlns="http://www.w3.org/2000/svg"
           >

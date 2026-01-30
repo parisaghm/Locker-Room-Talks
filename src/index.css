@@ -147,6 +147,15 @@
     @apply text-sm tracking-wide text-muted-foreground;
   }
 
+  /* Hero title — responsive sizing with clamp() for mobile */
+  .hero-title {
+    font-size: clamp(34px, 8.5vw, 90px);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
   /* Video-in-text logo mask — sharp edges, optional shadow */
   .title-video-mask-wrapper {
     -webkit-font-smoothing: antialiased;
