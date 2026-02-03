@@ -1,26 +1,26 @@
 import ScrollArrow from "../ScrollArrow";
 import parisaGhasemi from "@/assets/parisa-ghasemi.png";
-import teamMember2 from "@/assets/team-member-2.png";
+import farnazFarahdel from "@/assets/farnaz-farahdel.png";
 import teamMember3 from "@/assets/team-member-3.png";
 
 const teamMembers = [
-  { 
-    name: "Farnaz Farahdel", 
-    role: "Concept, Conversation & Editorial Direction", 
-    image: teamMember2,
-    bio: "Originator of Locker Room Talk. Farnaz leads the conversations and shapes the editorial direction of the series, overseeing the tone, structure, and final cut to ensure consistency, care, and aesthetic coherence across episodes.",
+  {
+    name: "Farnaz Farahdel",
+    role: "Concept, Conversation & Editorial Direction",
+    image: farnazFarahdel,
+    bio: "Originator of Locker Room Talks. Farnaz leads the conversations and shapes the editorial direction of the series, overseeing the tone, structure, and final cut to ensure consistency, care, and aesthetic coherence across episodes.",
     noHover: false
   },
-  { 
-    name: "Parisa Ghasemi", 
-    role: "Development & Digital Strategy", 
+  {
+    name: "Parisa Ghasemi",
+    role: "Development & Digital Strategy",
     image: parisaGhasemi,
-    bio: "Parisa leads the technical development of Locker Room Talk and oversees its digital presence. She is responsible for building and maintaining the platform, supporting content distribution, and shaping the project's online visibility across channels.",
+    bio: "Parisa leads the technical development of Locker Room Talks and oversees its digital presence. She is responsible for building and maintaining the platform, supporting content distribution, and shaping the project's online visibility across channels.",
     noHover: false
   },
-  { 
-    name: "Linda Wang", 
-    role: "Photography & Videography", 
+  {
+    name: "Linda Wang",
+    role: "Photography & Videography",
     image: teamMember3,
     bio: "Linda leads still photography and supports video capture on set. She specializes in portrait and lifestyle visuals, capturing clean, natural moments that preserve emotion and story with clarity and warmth.",
     noHover: true
@@ -37,8 +37,8 @@ const TeamSection = () => {
             team<span className="dot-teal"></span>
           </h2>
           <p className="body-text max-w-2xl mx-auto">
-            Created by a small, independent team working across editorial, production, and visual design. 
-            The project is shaped collaboratively, with close attention to conversation, cultural context, 
+            Created by a small, independent team working across editorial, production, and visual design.
+            The project is shaped collaboratively, with close attention to conversation, cultural context,
             and care in representation.
           </p>
         </div>
@@ -50,10 +50,10 @@ const TeamSection = () => {
               {/* Photo Frame */}
               <div className="relative mb-6 p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300">
                 <div className="w-48 h-64 md:w-56 md:h-72 lg:w-64 lg:h-80 overflow-hidden">
-                  <img 
-                    src={member.image} 
+                  <img
+                    src={member.image}
                     alt={member.name}
-                    className={`w-full h-full object-cover transition-all duration-500 ${member.noHover ? 'grayscale' : 'grayscale group-hover:grayscale-0'}`}
+                    className={`w-full h-full object-cover object-center transition-all duration-500 ${member.noHover ? 'grayscale' : 'grayscale group-hover:grayscale-0'}`}
                   />
                 </div>
               </div>

@@ -1,22 +1,14 @@
-import { useState } from "react";
 import GuestCard from "../GuestCard";
 import hopeMakaraPhoto from "@/assets/hope-makara.png";
 import asmaraRiazPhoto from "@/assets/asmara-riaz.png";
+import mariiJuhtPhoto from "@/assets/marii-juht.png";
 
 const ContactSection = () => {
-  const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
-
-  const toggleExpanded = (id: string) => {
-    setExpandedIds((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
   const guests = [
     {
       id: "hope-makara",
       name: "Hope Makara",
-      photo: asmaraRiazPhoto,
+      photo: hopeMakaraPhoto,
       summary:
         "A licensed sosionomi and co-founder of MIELI Without Borders, passionate about mental health and creating spaces where people feel connected and understood.",
       fullBio:
@@ -28,7 +20,7 @@ const ContactSection = () => {
     {
       id: "asmara-riaz",
       name: "Asmara Riaz",
-      photo: hopeMakaraPhoto,
+      photo: asmaraRiazPhoto,
       summary:
         "A dedicated professional focused on supporting internationals and facilitating integration, helping people navigate complex systems and access meaningful opportunities.",
       fullBio:
@@ -37,11 +29,23 @@ const ContactSection = () => {
       youtubeUrl: "#",
       applePodcastsUrl: "#",
     },
+    {
+      id: "marii-juht",
+      name: "Marii Juht",
+      photo: mariiJuhtPhoto,
+      summary:
+        "A passionate advocate and professional dedicated to supporting communities and creating meaningful connections.",
+      fullBio:
+        "Marii Juht is the founder of Intero Integration, focused on making global mobility more human—so relocation becomes more than paperwork, and people can truly settle, belong, and stay. Having moved to Finland in December 2020, she understands integration not only professionally, but personally.",
+      tags: ["community", "dialogue"],
+      youtubeUrl: "#",
+      applePodcastsUrl: "#",
+    },
   ];
 
   return (
     <section id="contact" className="section-full py-12 md:py-16 px-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12">
           <h2 className="heading-lg mb-4">
             Meet the voices<span className="dot-green"></span>
@@ -51,7 +55,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
           {guests.map((guest) => (
             <GuestCard
               key={guest.id}
@@ -63,8 +67,7 @@ const ContactSection = () => {
               tags={guest.tags}
               youtubeUrl={guest.youtubeUrl}
               applePodcastsUrl={guest.applePodcastsUrl}
-              isExpanded={!!expandedIds[guest.id]}
-              onToggleExpanded={() => toggleExpanded(guest.id)}
+              imagePosition={guest.id === "asmara-riaz" || guest.id === "marii-juht" ? "center" : undefined}
             />
           ))}
         </div>

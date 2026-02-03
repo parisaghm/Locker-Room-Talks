@@ -9,32 +9,32 @@
     --background: 40 10% 96%;
     --foreground: 0 0% 8%;
 
-    --card: 0 0% 100%;
+    --card           : 0 0% 100%;
     --card-foreground: 0 0% 8%;
 
-    --popover: 0 0% 100%;
+    --popover           : 0 0% 100%;
     --popover-foreground: 0 0% 8%;
 
-    --primary: 0 0% 8%;
+    --primary           : 0 0% 8%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 48 100% 50%;
+    --secondary           : 48 100% 50%;
     --secondary-foreground: 0 0% 8%;
 
-    --muted: 0 0% 90%;
+    --muted           : 0 0% 90%;
     --muted-foreground: 0 0% 45%;
 
-    --accent-pink: 330 65% 55%;
+    --accent-pink  : 330 65% 55%;
     --accent-yellow: 48 100% 50%;
-    --accent-teal: 175 70% 45%;
-    --accent-green: 85 60% 50%;
+    --accent-teal  : 175 70% 45%;
+    --accent-green : 85 60% 50%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive           : 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 0 0% 8%;
+    --input : 0 0% 88%;
+    --ring  : 0 0% 8%;
 
     --radius: 0rem;
 
@@ -58,9 +58,9 @@
   }
 
   body {
-    background-color: hsl(var(--background));
-    background-image: url('/images/site-background.jpg');
-    background-repeat: repeat;
+    background-color : hsl(var(--background));
+    background-image : url('/images/site-background.jpg');
+    background-repeat : repeat;
     background-size: auto;
     background-position: center;
     @apply bg-background text-foreground antialiased;
@@ -69,15 +69,15 @@
 }
 
 @layer components {
+
   /* Corner Navigation */
   .corner-logo {
-    @apply fixed top-0 left-0 w-16 h-16 md:w-20 md:h-20 bg-primary flex items-center justify-center z-50;
+    @apply fixed top-0 left-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center z-50;
   }
 
   .corner-menu {
-    @apply fixed top-0 right-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center z-50 cursor-pointer
-           hover:opacity-90 transition-opacity;
-    background-color: #a00303;
+    @apply fixed top-0 right-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center z-50 cursor-pointer hover:opacity-90 transition-opacity;
+    background-color                       : #a00303;
   }
 
   /* Typography */
@@ -101,27 +101,27 @@
   /* Accent Dots */
   .dot-pink {
     @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color: hsl(var(--accent-pink));
+    background-color              : hsl(var(--accent-pink));
   }
 
   .dot-yellow {
     @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color: hsl(var(--accent-yellow));
+    background-color              : hsl(var(--accent-yellow));
   }
 
   .dot-teal {
     @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color: hsl(var(--accent-teal));
+    background-color              : hsl(var(--accent-teal));
   }
 
   .dot-green {
     @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color: hsl(var(--accent-green));
+    background-color              : hsl(var(--accent-green));
   }
 
   /* Tagline styling */
   .tagline {
-    font-family: var(--font-primary);
+    font-family      : var(--font-primary);
     @apply text-xl md:text-2xl;
   }
 
@@ -135,7 +135,7 @@
 
   /* Body Text */
   .body-text {
-    font-family: var(--font-primary);
+    font-family        : var(--font-primary);
     @apply text-base md:text-lg leading-relaxed text-muted-foreground;
   }
 
@@ -149,17 +149,26 @@
 
   /* Hero title — responsive sizing with clamp() for mobile */
   .hero-title {
-    font-size: clamp(34px, 8.5vw, 90px);
-    line-height: 1;
-    white-space: nowrap;
-    overflow: visible;
+    font-size    : clamp(34px, 8.5vw, 90px);
+    line-height  : 1;
+    white-space  : nowrap;
+    overflow     : visible;
     text-overflow: clip;
+  }
+
+  /* Hero secondary heading — "Follow the conversation" */
+  .hero-follow-title {
+    font-family: var(--font-primary);
+    font-size  : clamp(1.125rem, 2.5vw, 1.375rem);
+    font-weight: 700;
+    color      : #000000;
+    line-height: 1.3;
   }
 
   /* Video-in-text logo mask — sharp edges, optional shadow */
   .title-video-mask-wrapper {
     -webkit-font-smoothing: antialiased;
-    font-family: var(--font-primary);
+    font-family           : var(--font-primary);
   }
 
   .title-video-mask-svg text {
@@ -168,9 +177,9 @@
 
   .title-video-mask-layer {
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+    backface-visibility        : hidden;
+    transform                  : translateZ(0);
+    filter                     : drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
   }
 
   /* Section Layout */
@@ -192,15 +201,14 @@
 
   /* Link with Arrow */
   .link-arrow {
-    @apply inline-flex items-center gap-1 text-foreground transition-all duration-200 
-           py-0.5 text-sm md:text-base lowercase cursor-pointer;
+    @apply inline-flex items-center gap-1 text-foreground transition-all duration-200 py-0.5 text-sm md:text-base lowercase cursor-pointer;
   }
 
   .link-arrow:hover {
     background-color: hsl(var(--accent-yellow));
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    margin-left: -0.5rem;
+    padding-left    : 0.5rem;
+    padding-right   : 0.5rem;
+    margin-left     : -0.5rem;
   }
 
   /* Scroll Arrow */
@@ -208,11 +216,13 @@
     @apply absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3;
   }
 
+  /* Override for hero section: remove absolute positioning so text + arrow group together */
+  .hero-bottom-group .scroll-arrow-wrapper {
+    @apply static translate-x-0 flex flex-col items-center gap-0;
+  }
+
   .scroll-arrow {
-    @apply w-12 h-12 md:w-14 md:h-14 rounded-full border border-foreground/30 
-           flex items-center justify-center cursor-pointer
-           transition-all duration-300 ease-out
-           hover:border-foreground;
+    @apply w-12 h-12 md:w-14 md:h-14 rounded-full border border-foreground/30 flex items-center justify-center cursor-pointer transition-all duration-300 ease-out hover:border-foreground;
   }
 
   .scroll-arrow svg {
@@ -221,10 +231,9 @@
 
   /* CTA Button */
   .btn-cta {
-    @apply inline-flex items-center gap-2 px-8 py-4 font-medium
-           transition-all duration-300 text-sm md:text-base;
-    background-color: hsl(var(--accent-yellow));
-    color: hsl(var(--primary));
+    @apply inline-flex items-center gap-2 px-8 py-4 font-medium transition-all duration-300 text-sm md:text-base;
+    background-color                                                                                  : hsl(var(--accent-yellow));
+    color                                                                                             : hsl(var(--primary));
   }
 
   .btn-cta:hover {
@@ -254,9 +263,12 @@
 
 /* Hero title gradient animation */
 @keyframes gradient-shift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import lrtLogo from "@/assets/lrt-logo.png";
 
 const menuItems = [
   { label: "home", href: "#hero", dotColor: "bg-yellow-400" },
   { label: "team", href: "#team", dotColor: "bg-pink-500" },
-  { label: "Meet the voices", href: "#Meet the voices", dotColor: "bg-green-400" },
+  { label: "Meet the voices", href: "#contact", dotColor: "bg-green-400" },
   { label: "contact", href: "#footer", dotColor: "bg-blue-400" },
 ];
 
@@ -25,15 +24,15 @@ const CornerNav = () => {
       {/* Logo Corner */}
       <div className="corner-logo flex items-center justify-center p-1">
         <img
-          src={lrtLogo}
+          src="/lrt-logo.png"
           alt="Locker Room Talks"
-          className="w-full h-full object-contain max-w-[60px] max-h-[60px] md:max-w-[72px] md:max-h-[72px]"
+          className="w-full h-full object-contain max-w-[80px] max-h-[80px] md:max-w-[96px] md:max-h-[96px]"
         />
       </div>
 
       {/* Menu Corner */}
-      <button 
-        className="corner-menu" 
+      <button
+        className="corner-menu"
         aria-label="Open menu"
         onClick={() => setIsOpen(true)}
       >
@@ -45,14 +44,13 @@ const CornerNav = () => {
       </button>
 
       {/* Sliding Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-[100] transition-transform duration-500 ease-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+      <div
+        className={`fixed inset-0 z-[100] transition-transform duration-500 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Dark background */}
         <div className="absolute inset-0 bg-primary" />
-        
+
         {/* Close button */}
         <button
           className="absolute top-6 right-6 md:top-8 md:right-8 text-primary-foreground hover:opacity-70 transition-opacity z-10"

@@ -57,7 +57,7 @@ const HeroSection = () => {
                   dominantBaseline="central"
                   fill="white"
                   fontFamily="'DM Sans', system-ui, sans-serif"
-                  fontWeight="bold"
+                  fontWeight="800"
                   fontSize="1em"
                   letterSpacing="-0.02em"
                 >
@@ -116,7 +116,7 @@ const HeroSection = () => {
 
         {/* Tagline */}
         <p className="tagline mb-8">
-          <span className="tagline-bold">Conversations.unfold.</span>
+          <span className="tagline-bold">Conversations.Unfold.</span>
         </p>
 
         {/* Small line */}
@@ -125,18 +125,18 @@ const HeroSection = () => {
         {/* Body text */}
         <div className="space-y-6 mb-10">
           <p className="body-text text-center">
-            <strong>Locker Room Talks</strong> is a documentary video-podcast shaped around long-form conversation. 
-            Each episode brings together voices from different backgrounds living in Finland, 
-            opening space for thoughtful dialogue shaped by lived experience, cultural context, and reflection. 
-            Through conversation and carefully curated visual inserts, the series offers perspectives 
-            worth listening to — not to explain, but to understand. This is not a commentary about immigration. 
+            <strong>Locker Room Talks</strong> is a documentary video-podcast shaped around long-form conversation.
+            Each episode brings together voices from different backgrounds living in Finland,
+            opening space for thoughtful dialogue shaped by lived experience, cultural context, and reflection.
+            Through conversation and carefully curated visual inserts, the series offers perspectives
+            worth listening to — not to explain, but to understand. This is not a commentary about immigration.
             It is a space for lived experience, reflection, and exchange. Currently in production. Releasing early 2026.
           </p>
         </div>
 
         {/* Link label */}
-        <a 
-          href="#about" 
+        <a
+          href="#about"
           className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
         >
           Behind this project

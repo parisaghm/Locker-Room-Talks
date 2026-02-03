@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface GuestCardProps {
@@ -9,8 +10,10 @@ interface GuestCardProps {
   tags: string[];
   youtubeUrl?: string;
   applePodcastsUrl?: string;
-  isExpanded: boolean;
-  onToggleExpanded: () => void;
+  /** Optional object-position for the photo: "top" (default) or "center" for face-centered framing */
+  imagePosition?: "top" | "center";
+  /** Optional extra class(es) for the photo img (e.g. object-position or filter for a single guest) */
+  imageClassName?: string;
 }
 
 const GuestCard = ({
@@ -22,26 +25,32 @@ const GuestCard = ({
   tags,
   youtubeUrl = "#",
   applePodcastsUrl = "#",
-  isExpanded,
-  onToggleExpanded,
+  imagePosition = "top",
+  imageClassName,
 }: GuestCardProps) => {
+  // Each card manages its own expanded state - completely isolated
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setIsExpanded((prev) => !prev);
+  };
 
   return (
     <div className="w-full bg-white border border-gray-200/60 rounded-lg overflow-hidden flex flex-col">
       {/* Photo */}
-      <div className="relative w-full pt-[75%] overflow-hidden bg-gray-50 flex-shrink-0">
+      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-50 flex-shrink-0">
         <img
           src={photo}
           alt={name}
-          className="absolute inset-0 w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
+          className={`absolute inset-0 w-full h-full object-cover grayscale ${imagePosition === "center" ? "object-center" : "object-top"} ${imageClassName ?? ""}`.trim()}
         />
       </div>
 
       {/* Content */}
-      <div className="p-4 md:p-5 flex-1 flex flex-col">
+      <div className="p-3 md:p-4 flex-1 flex flex-col min-h-0">
         <h3 className="text-2xl md:text-3xl font-bold mb-2">{name}</h3>
 
-        <p className="text-base md:text-lg text-muted-foreground mb-3 leading-relaxed">
+        <p className="text-base md:text-lg text-muted-foreground mb-2 leading-relaxed">
           {summary}
         </p>
 
@@ -49,7 +58,7 @@ const GuestCard = ({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="text-sm px-2.5 py-0.5 bg-gray-50 text-gray-600 lowercase font-medium"
+              className="text-sm px-2.5 py-0.5 bg-gray-50 text-gray-600 lowercase font-medium rounded"
             >
               {tag}
             </span>
@@ -60,18 +69,18 @@ const GuestCard = ({
         <div className="mb-2">
           <button
             type="button"
-            onClick={onToggleExpanded}
+            onClick={handleToggle}
             aria-expanded={isExpanded}
             aria-controls={`guest-bio-${id}`}
-            className="flex items-center gap-2 text-sm text-foreground hover:text-foreground/70 transition-colors lowercase mb-1"
+            className="flex items-center gap-2 text-sm text-foreground lowercase"
           >
             {isExpanded ? (
               <>
-                Read less <ChevronUp className="w-4 h-4" />
+                Read less <ChevronUp className="w-4 h-4 shrink-0" />
               </>
             ) : (
               <>
-                Read more <ChevronDown className="w-4 h-4" />
+                Read more <ChevronDown className="w-4 h-4 shrink-0" />
               </>
             )}
           </button>
@@ -79,21 +88,21 @@ const GuestCard = ({
           {isExpanded && (
             <p
               id={`guest-bio-${id}`}
-              className="text-base text-muted-foreground leading-relaxed"
+              className="text-base text-muted-foreground leading-relaxed mt-1.5"
             >
               {fullBio}
             </p>
           )}
         </div>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 pt-3 border-t border-gray-100 mt-auto">
+        {/* CTAs — one row, same height, left-aligned */}
+        <div className="flex flex-row items-center gap-2 flex-nowrap pt-3 mt-auto border-t border-gray-100">
           <a
             href={youtubeUrl}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-[11px] font-medium hover:bg-gray-100 hover:border-gray-300 transition-all duration-200"
+            className="inline-flex items-center justify-center gap-1.5 h-9 min-h-9 px-2.5 md:px-3 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0"
           >
             <svg
-              className="w-4 h-4"
+              className="w-4 h-4 shrink-0"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -107,10 +116,10 @@ const GuestCard = ({
           </a>
           <a
             href={applePodcastsUrl}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-gray-200 text-gray-700 text-[11px] font-medium hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
+            className="inline-flex items-center justify-center gap-1.5 h-9 min-h-9 px-2.5 md:px-3 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0"
           >
             <svg
-              className="w-4 h-4"
+              className="w-4 h-4 shrink-0"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
