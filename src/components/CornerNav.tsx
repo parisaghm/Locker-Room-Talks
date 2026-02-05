@@ -5,6 +5,7 @@ const menuItems = [
   { label: "home", href: "#hero", dotColor: "bg-yellow-400" },
   { label: "team", href: "#team", dotColor: "bg-pink-500" },
   { label: "Meet the voices", href: "#contact", dotColor: "bg-green-400" },
+  { label: "gallery", href: "#gallery", dotColor: "bg-amber-400" },
   { label: "contact", href: "#footer", dotColor: "bg-blue-400" },
 ];
 

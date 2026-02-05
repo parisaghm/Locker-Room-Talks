@@ -1,150 +1,143 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
+import ColorDot from "../ColorDot";
 import ScrollArrow from "../ScrollArrow";
 
 const HeroSection = () => {
   const [videoFailed, setVideoFailed] = useState(false);
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const [textDimensions, setTextDimensions] = useState({ width: 0, height: 0 });
 
   const handleVideoError = useCallback(() => {
     setVideoFailed(true);
   }, []);
 
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (textRef.current) {
+        const rect = textRef.current.getBoundingClientRect();
+        setTextDimensions({ width: rect.width, height: rect.height });
+      }
+    };
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
   return (
-    <section id="hero" className="section-full flex flex-col items-center justify-center relative px-6 py-20">
-      {/* Centered Content */}
-      <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto">
-        {/* Pink Dot above title */}
+    <section
+      id="hero"
+      className="hero-section relative w-full h-[100svh] flex flex-col items-center justify-center px-6 py-8 overflow-hidden"
+    >
+      {/* Dot + Title (NOT constrained by max-w-3xl) */}
+      <div className="w-full flex flex-col items-center text-center">
         <div className="mb-6">
-          <span className="inline-block w-8 h-8 md:w-10 md:h-10 rounded-full" style={{ backgroundColor: '#a00303' }}></span>
+          <ColorDot size={70} />
         </div>
 
-        {/* Title block — video visible only inside the text (mask) */}
-        <div
-          className="relative mb-6 w-full flex justify-center rounded-sm title-video-mask-wrapper"
-          style={{
-            padding: '0.5rem 0',
-            overflow: 'visible',
-          }}
-        >
-          {/* Text for layout and semantics — hidden visually, keeps box size and a11y */}
+        {/* Title block with video mask */}
+        <div className="relative mb-6 px-4">
+          {/* Hidden text to measure dimensions */}
           <h1
-            className="hero-title font-bold tracking-tight px-2"
+            ref={textRef}
+            className="hero-title font-bold tracking-tight leading-none text-center"
             style={{
-              letterSpacing: '-0.02em',
-              visibility: 'hidden',
+              letterSpacing: "-0.02em",
               margin: 0,
-              whiteSpace: 'nowrap',
-              overflow: 'visible',
-              textOverflow: 'clip',
+              whiteSpace: "nowrap",
               lineHeight: 1,
+              visibility: "hidden",
+              position: "absolute",
             }}
           >
-            Locker Room Talks
+            Locker Room Talk
           </h1>
 
-          {/* SVG mask definition — text shape only (white = visible); font-size matches title */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none hero-title"
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <mask id="titleVideoMask">
-                <rect width="100%" height="100%" fill="black" />
-                <text
-                  x="50%"
-                  y="50%"
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fill="white"
-                  fontFamily="'DM Sans', system-ui, sans-serif"
-                  fontWeight="800"
-                  fontSize="1em"
-                  letterSpacing="-0.02em"
-                >
-                  Locker Room Talks
-                </text>
-              </mask>
-            </defs>
-          </svg>
-
-          {/* Video layer — masked so video shows only inside the text */}
+          {/* Video masked to text shape */}
           <div
-            className="absolute inset-0 z-0 overflow-hidden rounded-sm title-video-mask-layer"
+            className="relative"
             style={{
-              WebkitMaskImage: 'url(#titleVideoMask)',
-              maskImage: 'url(#titleVideoMask)',
-              WebkitMaskSize: '100% 100%',
-              maskSize: '100% 100%',
-              WebkitMaskRepeat: 'no-repeat',
-              maskRepeat: 'no-repeat',
-              WebkitMaskPosition: 'center',
-              maskPosition: 'center',
+              width: textDimensions.width || "auto",
+              height: textDimensions.height || "auto",
             }}
           >
-            {!videoFailed ? (
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 w-full h-full object-cover object-center min-w-full min-h-full"
-                aria-hidden
-                onError={handleVideoError}
-              >
-                <source src="/videos/hero-bg.mp4" type="video/mp4" />
-              </video>
-            ) : null}
-            {/* Fallback when video fails */}
-            <div
-              className="absolute inset-0 w-full h-full rounded-sm"
-              style={{
-                background: 'linear-gradient(180deg, rgba(250, 248, 245, 0.4) 0%, rgba(240, 238, 235, 0.6) 100%)',
-              }}
-            />
-            {/* Semi-transparent overlay for readability (only when video is showing) */}
-            {!videoFailed && (
+            {!videoFailed && textDimensions.width > 0 ? (
               <div
-                className="absolute inset-0 w-full h-full rounded-sm bg-black"
-                style={{ opacity: 0.45 }}
-                aria-hidden
-              />
+                style={{
+                  position: "relative",
+                  width: textDimensions.width,
+                  height: textDimensions.height,
+                  WebkitMaskImage: `url("data:image/svg+xml,${encodeURIComponent(
+                    `<svg xmlns='http://www.w3.org/2000/svg' width='${textDimensions.width}' height='${textDimensions.height}'><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Gilroy-Bold, DM Sans, system-ui, sans-serif' font-weight='800' font-size='${textDimensions.height * 0.9}px' letter-spacing='-0.02em' fill='white'>Locker Room Talk</text></svg>`
+                  )}")`,
+                  maskImage: `url("data:image/svg+xml,${encodeURIComponent(
+                    `<svg xmlns='http://www.w3.org/2000/svg' width='${textDimensions.width}' height='${textDimensions.height}'><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Gilroy-Bold, DM Sans, system-ui, sans-serif' font-weight='800' font-size='${textDimensions.height * 0.9}px' letter-spacing='-0.02em' fill='white'>Locker Room Talk</text></svg>`
+                  )}")`,
+                  WebkitMaskSize: "100% 100%",
+                  maskSize: "100% 100%",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                }}
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover"
+                  style={{ minWidth: "100%", minHeight: "100%" }}
+                  onError={handleVideoError}
+                >
+                  <source src="/videos/hero-bg.mp4" type="video/mp4" />
+                </video>
+                {/* Overlay for better text contrast */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: "rgba(0, 0, 0, 0.3)",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+              </div>
+            ) : (
+              <h1
+                className="hero-title font-bold tracking-tight leading-none text-center"
+                style={{
+                  letterSpacing: "-0.02em",
+                  margin: 0,
+                  whiteSpace: "nowrap",
+                  lineHeight: 1,
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #2d2d2d 25%, #4a4a4a 50%, #2d2d2d 75%, #1a1a2e 100%)",
+                  backgroundSize: "200% 200%",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                  animation: "gradient-shift 8s ease infinite",
+                }}
+              >
+                Locker Room Talk
+              </h1>
             )}
           </div>
-
         </div>
 
-        {/* Tagline */}
-        <p className="tagline mb-8">
-          <span className="tagline-bold">Conversations.Unfold.</span>
-        </p>
-
-        {/* Small line */}
-        <p className="label-text mb-10">Follow the conversation!</p>
-
-        {/* Body text */}
-        <div className="space-y-6 mb-10">
-          <p className="body-text text-center">
-            <strong>Locker Room Talks</strong> is a documentary video-podcast shaped around long-form conversation.
-            Each episode brings together voices from different backgrounds living in Finland,
-            opening space for thoughtful dialogue shaped by lived experience, cultural context, and reflection.
-            Through conversation and carefully curated visual inserts, the series offers perspectives
-            worth listening to — not to explain, but to understand. This is not a commentary about immigration.
-            It is a space for lived experience, reflection, and exchange. Currently in production. Releasing early 2026.
+        {/* Tagline (constrained like before) */}
+        <div className="max-w-3xl mx-auto">
+          <p className="tagline">
+            <span className="tagline-ideas">Conversations.</span>
+            <span className="tagline-built">Unfold.</span>
           </p>
         </div>
-
-        {/* Link label */}
-        <a
-          href="#about"
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
-        >
-          Behind this project
-        </a>
       </div>
 
-      {/* Scroll Arrow */}
-      <ScrollArrow targetId="team" />
+      {/* Bottom group */}
+      <div className="hero-bottom-group absolute bottom-8 md:bottom-12 left-0 right-0 flex flex-col items-center gap-3">
+        <span className="text-sm md:text-base text-muted-foreground cursor-default">
+          Behind this project
+        </span>
+        <ScrollArrow targetId="about" />
+      </div>
     </section>
   );
 };

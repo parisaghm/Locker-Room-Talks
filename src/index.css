@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&display=swap');
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+
+/* FF Market Web — place ff-market-web.woff2 (and optionally .woff) in public/fonts/ for no 404 */
+@font-face {
+  font-family : ff-market-web;
+  font-style  : normal;
+  font-weight : 400;
+  font-display: swap;
+  src         : url('/fonts/ff-market-web.woff2') format('woff2'), url('/fonts/ff-market-web.woff') format('woff');
+}
 
 @tailwind base;
 @tailwind components;
@@ -58,10 +68,10 @@
   }
 
   body {
-    background-color : hsl(var(--background));
-    background-image : url('/images/site-background.jpg');
-    background-repeat : repeat;
-    background-size: auto;
+    background-color   : hsl(var(--background));
+    background-image   : url('/images/site-background.jpg');
+    background-repeat  : repeat;
+    background-size    : auto;
     background-position: center;
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-primary);
@@ -119,18 +129,30 @@
     background-color              : hsl(var(--accent-green));
   }
 
-  /* Tagline styling */
+  /* Tagline — ideas.built-style: editorial serif + bold sans, no skew/transform */
   .tagline {
-    font-family      : var(--font-primary);
+    color            : #111;
+    transform        : none;
     @apply text-xl md:text-2xl;
   }
 
-  .tagline-italic {
-    @apply italic font-normal;
+  /* Editorial / handwritten feel — "Conversations." */
+  .tagline-ideas {
+    font-family   : 'DM Serif Display', Georgia, serif;
+    font-style    : italic;
+    font-weight   : 400;
+    letter-spacing: 0.02em;
+    line-height   : 1.1;
+    color         : #111;
   }
 
-  .tagline-bold {
-    @apply font-bold not-italic;
+  /* Bold modern sans — "Unfold." */
+  .tagline-built {
+    font-family   : var(--font-primary);
+    font-weight   : 800;
+    letter-spacing: 0.01em;
+    color         : #111;
+    margin-left   : 0.04em;
   }
 
   /* Body Text */
@@ -147,9 +169,11 @@
     @apply text-sm tracking-wide text-muted-foreground;
   }
 
-  /* Hero title — responsive sizing with clamp() for mobile */
+  /* Hero title — responsive sizing with clamp(); shared by h1 and SVG mask text (fontSize="1em") */
   .hero-title {
-    font-size    : clamp(34px, 8.5vw, 90px);
+    font-family  : 'Gilroy-Bold', 'DM Sans', system-ui, sans-serif;
+    font-size    : clamp(3.5rem, 12vw, 8rem);
+    font-weight  : 800;
     line-height  : 1;
     white-space  : nowrap;
     overflow     : visible;
@@ -182,9 +206,18 @@
     filter                     : drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
   }
 
-  /* Section Layout */
+  /* Hero Section — exactly one viewport, no overflow */
+  .hero-section {
+    height    : 100svh;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+
+  /* Section Layout — exactly one viewport for full-page sections */
   .section-full {
-    @apply min-h-screen w-full relative;
+    height    : 100svh;
+    min-height: 0;
+    @apply w-full relative;
   }
 
   .section-split {
@@ -271,5 +304,59 @@
 
   50% {
     background-position: 100% 50%;
+  }
+}
+
+/* Color-changing dot animation */
+@keyframes color-cycle {
+  0% {
+    background-color: #a00303;
+    /* Deep red (original) */
+  }
+
+  16% {
+    background-color: #d4145a;
+    /* Magenta pink */
+  }
+
+  33% {
+    background-color: #f7971e;
+    /* Orange */
+  }
+
+  50% {
+    background-color: #00c6ff;
+    /* Cyan */
+  }
+
+  66% {
+    background-color: #6a11cb;
+    /* Purple */
+  }
+
+  83% {
+    background-color: #2ecc71;
+    /* Green */
+  }
+
+  100% {
+    background-color: #a00303;
+    /* Back to deep red */
+  }
+}
+
+.color-dot {
+  display         : inline-block;
+  border-radius   : 50%;
+  background-color: #a00303;
+  animation       : color-cycle 8s ease-in-out infinite;
+  will-change     : background-color;
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .color-dot {
+    animation       : none;
+    background-color: #a00303;
   }
 }

@@ -44,9 +44,9 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="section-full py-12 md:py-16 px-6">
+    <section id="contact" className="section-full h-[100svh] flex flex-col justify-center px-6 py-10 md:py-12 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10 md:mb-12">
+        <div className="text-center mb-6 md:mb-8">
           <h2 className="heading-lg mb-4">
             Meet the voices<span className="dot-green"></span>
           </h2>
@@ -55,7 +55,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
           {guests.map((guest) => (
             <GuestCard
               key={guest.id}

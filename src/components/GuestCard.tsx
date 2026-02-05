@@ -36,7 +36,7 @@ const GuestCard = ({
   };
 
   return (
-    <div className="w-full bg-white border border-gray-200/60 rounded-lg overflow-hidden flex flex-col">
+    <div className="w-full h-full bg-white border border-gray-200/60 rounded-lg overflow-hidden flex flex-col">
       {/* Photo */}
       <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-50 flex-shrink-0">
         <img
@@ -50,53 +50,56 @@ const GuestCard = ({
       <div className="p-3 md:p-4 flex-1 flex flex-col min-h-0">
         <h3 className="text-2xl md:text-3xl font-bold mb-2">{name}</h3>
 
-        <p className="text-base md:text-lg text-muted-foreground mb-2 leading-relaxed">
-          {summary}
-        </p>
+        {/* Variable content wrapper - takes remaining space */}
+        <div className="flex-1 flex flex-col">
+          <p className="text-base md:text-lg text-muted-foreground mb-2 leading-relaxed">
+            {summary}
+          </p>
 
-        <div className="flex flex-wrap gap-1.5 mb-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-sm px-2.5 py-0.5 bg-gray-50 text-gray-600 lowercase font-medium rounded"
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-sm px-2.5 py-0.5 bg-gray-50 text-gray-600 lowercase font-medium rounded"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Collapsible Bio */}
+          <div className="mb-2">
+            <button
+              type="button"
+              onClick={handleToggle}
+              aria-expanded={isExpanded}
+              aria-controls={`guest-bio-${id}`}
+              className="flex items-center gap-2 text-sm text-foreground lowercase"
             >
-              {tag}
-            </span>
-          ))}
-        </div>
+              {isExpanded ? (
+                <>
+                  Read less <ChevronUp className="w-4 h-4 shrink-0" />
+                </>
+              ) : (
+                <>
+                  Read more <ChevronDown className="w-4 h-4 shrink-0" />
+                </>
+              )}
+            </button>
 
-        {/* Collapsible Bio */}
-        <div className="mb-2">
-          <button
-            type="button"
-            onClick={handleToggle}
-            aria-expanded={isExpanded}
-            aria-controls={`guest-bio-${id}`}
-            className="flex items-center gap-2 text-sm text-foreground lowercase"
-          >
-            {isExpanded ? (
-              <>
-                Read less <ChevronUp className="w-4 h-4 shrink-0" />
-              </>
-            ) : (
-              <>
-                Read more <ChevronDown className="w-4 h-4 shrink-0" />
-              </>
+            {isExpanded && (
+              <p
+                id={`guest-bio-${id}`}
+                className="text-base text-muted-foreground leading-relaxed mt-1.5"
+              >
+                {fullBio}
+              </p>
             )}
-          </button>
-
-          {isExpanded && (
-            <p
-              id={`guest-bio-${id}`}
-              className="text-base text-muted-foreground leading-relaxed mt-1.5"
-            >
-              {fullBio}
-            </p>
-          )}
+          </div>
         </div>
 
         {/* CTAs — one row, same height, left-aligned */}
-        <div className="flex flex-row items-center gap-2 flex-nowrap pt-3 mt-auto border-t border-gray-100">
+        <div className="flex flex-row items-center gap-2 flex-nowrap pt-3 mt-0 border-t border-gray-100">
           <a
             href={youtubeUrl}
             className="inline-flex items-center justify-center gap-1.5 h-9 min-h-9 px-2.5 md:px-3 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0"

@@ -29,11 +29,11 @@ const teamMembers = [
 
 const TeamSection = () => {
   return (
-    <section id="team" className="min-h-screen w-full relative flex items-center py-20">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+    <section id="team" className="h-[100svh] w-full relative flex flex-col justify-center px-6 md:px-12 lg:px-20 py-8 md:py-10 overflow-hidden">
+      <div className="container mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="heading-lg mb-6">
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="heading-lg mb-4">
             team<span className="dot-teal"></span>
           </h2>
           <p className="body-text max-w-2xl mx-auto">
@@ -44,7 +44,7 @@ const TeamSection = () => {
         </div>
 
         {/* Team Members */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-5xl mx-auto mb-6">
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col items-center group">
               {/* Photo Frame */}
@@ -69,7 +69,9 @@ const TeamSection = () => {
         </div>
       </div>
 
-      <ScrollArrow targetId="contact" />
+      <div className="hero-bottom-group flex flex-col items-center mt-12 md:mt-20">
+        <ScrollArrow targetId="contact" />
+      </div>
     </section>
   );
 };
