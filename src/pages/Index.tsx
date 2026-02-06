@@ -10,12 +10,13 @@ const Index = () => {
   return (
     <>
       <CornerNav />
-      <main className="w-full">
+      <main className="w-full min-w-0 max-w-full overflow-x-hidden">
         <HeroSection />
         <AboutProjectSection />
         <TeamSection />
-        <GallerySection />
         <ContactSection />
+        <GallerySection />
+
       </main>
       <FooterSection />
     </>

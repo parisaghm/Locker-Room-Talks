@@ -1,4 +1,5 @@
 import GuestCard from "../GuestCard";
+import ScrollArrow from "../ScrollArrow";
 import hopeMakaraPhoto from "@/assets/hope-makara.png";
 import asmaraRiazPhoto from "@/assets/asmara-riaz.png";
 import mariiJuhtPhoto from "@/assets/marii-juht.png";
@@ -44,18 +45,15 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="section-full h-[100svh] flex flex-col justify-center px-6 py-10 md:py-12 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-6 md:mb-8">
-          <h2 className="heading-lg mb-4">
+    <section id="contact" className="min-h-0 md:min-h-[100svh] w-full max-w-full min-w-0 relative flex flex-col justify-start md:justify-center px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:pt-12 pb-16 sm:pb-24 md:pb-32 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto w-full min-w-0 overflow-x-hidden">
+        <div className="text-center mb-6 md:mb-8 min-w-0">
+          <h2 className="heading-lg mb-4 break-words">
             Meet the voices<span className="dot-green"></span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground lowercase">
-            This week's guests.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-[repeat(2,minmax(0,1fr))] xl:grid-cols-[repeat(3,minmax(0,1fr))] gap-4 sm:gap-5 md:gap-6 items-stretch w-full min-w-0">
           {guests.map((guest) => (
             <GuestCard
               key={guest.id}
@@ -70,6 +68,9 @@ const ContactSection = () => {
               imagePosition={guest.id === "asmara-riaz" || guest.id === "marii-juht" ? "center" : undefined}
             />
           ))}
+        </div>
+        <div className="hero-bottom-group flex flex-col items-center mt-8 sm:mt-12 md:mt-20">
+          <ScrollArrow targetId="gallery" />
         </div>
       </div>
     </section>

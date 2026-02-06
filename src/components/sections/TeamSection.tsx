@@ -29,27 +29,27 @@ const teamMembers = [
 
 const TeamSection = () => {
   return (
-    <section id="team" className="h-[100svh] w-full relative flex flex-col justify-center px-6 md:px-12 lg:px-20 py-8 md:py-10 overflow-hidden">
-      <div className="container mx-auto">
+    <section id="team" className="min-h-0 md:min-h-[100svh] w-full max-w-full min-w-0 relative flex flex-col justify-start md:justify-center px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:pt-12 pb-12 sm:pb-16 md:pb-24 overflow-x-hidden">
+      <div className="container mx-auto w-full min-w-0 px-0 sm:px-4">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-10">
-          <h2 className="heading-lg mb-4">
+        <div className="text-center mb-6 sm:mb-8 md:mb-10">
+          <h2 className="heading-lg mb-4 break-words">
             team<span className="dot-teal"></span>
           </h2>
-          <p className="body-text max-w-2xl mx-auto">
+          <p className="body-text max-w-2xl mx-auto break-words">
             Created by a small, independent team working across editorial, production, and visual design.
             The project is shaped collaboratively, with close attention to conversation, cultural context,
             and care in representation.
           </p>
         </div>
 
-        {/* Team Members */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-5xl mx-auto mb-6">
+        {/* Team Members — stack on mobile, 2 cols tablet, 3 cols desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto mb-6 w-full min-w-0">
           {teamMembers.map((member, index) => (
-            <div key={index} className="flex flex-col items-center group">
-              {/* Photo Frame */}
-              <div className="relative mb-6 p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300">
-                <div className="w-48 h-64 md:w-56 md:h-72 lg:w-64 lg:h-80 overflow-hidden">
+            <div key={index} className="flex flex-col items-center group min-w-0 w-full">
+              {/* Photo Frame — responsive aspect ratio */}
+              <div className="relative mb-4 sm:mb-6 p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem] mx-auto">
+                <div className="w-full aspect-[3/4] overflow-hidden max-h-64 sm:max-h-72 md:max-h-80">
                   <img
                     src={member.image}
                     alt={member.name}
@@ -58,10 +58,10 @@ const TeamSection = () => {
                 </div>
               </div>
               {/* Name & Role */}
-              <h3 className="text-lg md:text-xl font-bold text-center mb-1 capitalize">{member.name}</h3>
-              <p className="text-sm text-muted-foreground text-center mb-4 font-bold">{member.role}</p>
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-center mb-1 capitalize break-words">{member.name}</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground text-center mb-3 sm:mb-4 font-bold break-words px-2">{member.role}</p>
               {/* Bio */}
-              <p className="text-sm text-muted-foreground text-center leading-relaxed max-w-sm">
+              <p className="text-xs sm:text-sm text-muted-foreground text-center leading-relaxed max-w-sm mx-auto break-words">
                 {member.bio}
               </p>
             </div>
@@ -69,7 +69,7 @@ const TeamSection = () => {
         </div>
       </div>
 
-      <div className="hero-bottom-group flex flex-col items-center mt-12 md:mt-20">
+      <div className="hero-bottom-group flex flex-col items-center mt-8 sm:mt-12 md:mt-20">
         <ScrollArrow targetId="contact" />
       </div>
     </section>

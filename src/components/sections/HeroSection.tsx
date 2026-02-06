@@ -49,7 +49,7 @@ const HeroSection = () => {
               position: "absolute",
             }}
           >
-            Locker Room Talk
+            Locker Room Talks
           </h1>
 
           {/* Video masked to text shape */}
@@ -67,10 +67,10 @@ const HeroSection = () => {
                   width: textDimensions.width,
                   height: textDimensions.height,
                   WebkitMaskImage: `url("data:image/svg+xml,${encodeURIComponent(
-                    `<svg xmlns='http://www.w3.org/2000/svg' width='${textDimensions.width}' height='${textDimensions.height}'><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Gilroy-Bold, DM Sans, system-ui, sans-serif' font-weight='800' font-size='${textDimensions.height * 0.9}px' letter-spacing='-0.02em' fill='white'>Locker Room Talk</text></svg>`
+                    `<svg xmlns='http://www.w3.org/2000/svg' width='${textDimensions.width}' height='${textDimensions.height}'><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Gilroy-Bold, DM Sans, system-ui, sans-serif' font-weight='800' font-size='${textDimensions.height * 0.9}px' letter-spacing='-0.02em' fill='white'>Locker Room Talks</text></svg>`
                   )}")`,
                   maskImage: `url("data:image/svg+xml,${encodeURIComponent(
-                    `<svg xmlns='http://www.w3.org/2000/svg' width='${textDimensions.width}' height='${textDimensions.height}'><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Gilroy-Bold, DM Sans, system-ui, sans-serif' font-weight='800' font-size='${textDimensions.height * 0.9}px' letter-spacing='-0.02em' fill='white'>Locker Room Talk</text></svg>`
+                    `<svg xmlns='http://www.w3.org/2000/svg' width='${textDimensions.width}' height='${textDimensions.height}'><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Gilroy-Bold, DM Sans, system-ui, sans-serif' font-weight='800' font-size='${textDimensions.height * 0.9}px' letter-spacing='-0.02em' fill='white'>Locker Room Talks</text></svg>`
                   )}")`,
                   WebkitMaskSize: "100% 100%",
                   maskSize: "100% 100%",
@@ -116,7 +116,7 @@ const HeroSection = () => {
                   animation: "gradient-shift 8s ease infinite",
                 }}
               >
-                Locker Room Talk
+                Locker Room Talks
               </h1>
             )}
           </div>
@@ -134,7 +134,7 @@ const HeroSection = () => {
       {/* Bottom group */}
       <div className="hero-bottom-group absolute bottom-8 md:bottom-12 left-0 right-0 flex flex-col items-center gap-3">
         <span className="text-sm md:text-base text-muted-foreground cursor-default">
-          Behind this project
+          Explore our purpose
         </span>
         <ScrollArrow targetId="about" />
       </div>

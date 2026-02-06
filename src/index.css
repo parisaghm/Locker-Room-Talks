@@ -65,6 +65,14 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x     : hidden;
+    scrollbar-width: none;
+    /* Firefox     : hide scrollbar */
+  }
+
+  html::-webkit-scrollbar {
+    display                : none;
+    /* Chrome, Safari, Edge: hide scrollbar */
   }
 
   body {
@@ -74,20 +82,24 @@
     background-size    : auto;
     background-position: center;
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-primary);
+    font-family       : var(--font-primary);
+    overflow-x        : hidden;
+    min-width         : 0;
+    -ms-overflow-style: none;
+    /* IE/Edge        : hide scrollbar */
   }
 }
 
 @layer components {
 
-  /* Corner Navigation */
+  /* Corner Navigation — touch-friendly (min 44px) */
   .corner-logo {
-    @apply fixed top-0 left-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center z-50;
+    @apply fixed top-0 left-0 w-16 h-16 min-w-16 min-h-16 md:w-20 md:h-20 md:min-w-20 md:min-h-20 flex items-center justify-center z-50;
   }
 
   .corner-menu {
-    @apply fixed top-0 right-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center z-50 cursor-pointer hover:opacity-90 transition-opacity;
-    background-color                       : #a00303;
+    @apply fixed top-0 right-0 w-16 h-16 min-w-16 min-h-16 md:w-20 md:h-20 md:min-w-20 md:min-h-20 flex items-center justify-center z-50 cursor-pointer hover:opacity-90 transition-opacity touch-manipulation;
+    background-color                                         : #a00303;
   }
 
   /* Typography */
@@ -97,15 +109,15 @@
   }
 
   .heading-xl {
-    @apply heading-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl;
+    @apply heading-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl;
   }
 
   .heading-lg {
-    @apply heading-display text-5xl sm:text-6xl md:text-7xl;
+    @apply heading-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl;
   }
 
   .heading-md {
-    @apply heading-display text-3xl sm:text-4xl md:text-5xl;
+    @apply heading-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
   }
 
   /* Accent Dots */
@@ -131,9 +143,9 @@
 
   /* Tagline — ideas.built-style: editorial serif + bold sans, no skew/transform */
   .tagline {
-    color            : #111;
-    transform        : none;
-    @apply text-xl md:text-2xl;
+    color              : #111;
+    transform          : none;
+    @apply text-base sm:text-xl md:text-2xl;
   }
 
   /* Editorial / handwritten feel — "Conversations." */
@@ -157,8 +169,8 @@
 
   /* Body Text */
   .body-text {
-    font-family        : var(--font-primary);
-    @apply text-base md:text-lg leading-relaxed text-muted-foreground;
+    font-family      : var(--font-primary);
+    @apply text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground break-words;
   }
 
   .body-small {
@@ -169,15 +181,22 @@
     @apply text-sm tracking-wide text-muted-foreground;
   }
 
-  /* Hero title — responsive sizing with clamp(); shared by h1 and SVG mask text (fontSize="1em") */
+  /* Hero title — responsive sizing with clamp(); single line so video mask measure matches */
   .hero-title {
     font-family  : 'Gilroy-Bold', 'DM Sans', system-ui, sans-serif;
     font-size    : clamp(3.5rem, 12vw, 8rem);
     font-weight  : 800;
-    line-height  : 1;
+    line-height  : 1.05;
     white-space  : nowrap;
     overflow     : visible;
     text-overflow: clip;
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: clamp(1.5rem, 10vw, 2.75rem);
+      max-width: 100%;
+    }
   }
 
   /* Hero secondary heading — "Follow the conversation" */
@@ -213,11 +232,17 @@
     box-sizing: border-box;
   }
 
+  .hero-section .color-dot {
+    width : clamp(48px, 14vw, 70px) !important;
+    height: clamp(48px, 14vw, 70px) !important;
+  }
+
   /* Section Layout — exactly one viewport for full-page sections */
   .section-full {
     height    : 100svh;
     min-height: 0;
-    @apply w-full relative;
+    overflow-x: hidden;
+    @apply w-full max-w-full relative box-border;
   }
 
   .section-split {
@@ -229,12 +254,12 @@
   }
 
   .section-content {
-    @apply flex flex-col justify-center px-8 md:px-16 lg:px-20 py-16 lg:py-0;
+    @apply flex flex-col justify-center px-4 sm:px-6 md:px-16 lg:px-20 py-10 sm:py-12 md:py-16 lg:py-0;
   }
 
-  /* Link with Arrow */
+  /* Link with Arrow — touch-friendly padding */
   .link-arrow {
-    @apply inline-flex items-center gap-1 text-foreground transition-all duration-200 py-0.5 text-sm md:text-base lowercase cursor-pointer;
+    @apply inline-flex items-center gap-1 text-foreground transition-all duration-200 min-h-[44px] py-2 px-1 text-sm md:text-base lowercase cursor-pointer touch-manipulation;
   }
 
   .link-arrow:hover {
@@ -255,18 +280,18 @@
   }
 
   .scroll-arrow {
-    @apply w-12 h-12 md:w-14 md:h-14 rounded-full border border-foreground/30 flex items-center justify-center cursor-pointer transition-all duration-300 ease-out hover:border-foreground;
+    @apply w-12 h-12 min-w-12 min-h-12 md:w-14 md:h-14 md:min-w-14 md:min-h-14 rounded-full border border-foreground/30 flex items-center justify-center cursor-pointer transition-all duration-300 ease-out hover:border-foreground touch-manipulation;
   }
 
   .scroll-arrow svg {
     @apply w-5 h-5 md:w-6 md:h-6;
   }
 
-  /* CTA Button */
+  /* CTA Button — touch-friendly min height */
   .btn-cta {
-    @apply inline-flex items-center gap-2 px-8 py-4 font-medium transition-all duration-300 text-sm md:text-base;
-    background-color                                                                                  : hsl(var(--accent-yellow));
-    color                                                                                             : hsl(var(--primary));
+    @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 sm:px-8 sm:py-4 font-medium transition-all duration-300 text-sm md:text-base touch-manipulation;
+    background-color                                                              : hsl(var(--accent-yellow));
+    color                                                                         : hsl(var(--primary));
   }
 
   .btn-cta:hover {

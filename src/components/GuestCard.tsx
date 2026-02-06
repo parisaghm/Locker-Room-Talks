@@ -36,9 +36,9 @@ const GuestCard = ({
   };
 
   return (
-    <div className="w-full h-full bg-white border border-gray-200/60 rounded-lg overflow-hidden flex flex-col">
-      {/* Photo */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-50 flex-shrink-0">
+    <div className="w-full min-w-0 max-w-full h-full bg-white border border-gray-200/60 rounded-lg overflow-hidden flex flex-col">
+      {/* Photo — aspect-ratio + object-cover */}
+      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-50 flex-shrink-0 min-h-0">
         <img
           src={photo}
           alt={name}
@@ -47,12 +47,12 @@ const GuestCard = ({
       </div>
 
       {/* Content */}
-      <div className="p-3 md:p-4 flex-1 flex flex-col min-h-0">
-        <h3 className="text-2xl md:text-3xl font-bold mb-2">{name}</h3>
+      <div className="p-3 sm:p-4 flex-1 flex flex-col min-h-0 min-w-0">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 break-words">{name}</h3>
 
         {/* Variable content wrapper - takes remaining space */}
-        <div className="flex-1 flex flex-col">
-          <p className="text-base md:text-lg text-muted-foreground mb-2 leading-relaxed">
+        <div className="flex-1 flex flex-col min-w-0">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-2 leading-relaxed break-words">
             {summary}
           </p>
 
@@ -60,7 +60,7 @@ const GuestCard = ({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="text-sm px-2.5 py-0.5 bg-gray-50 text-gray-600 lowercase font-medium rounded"
+                className="text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 bg-gray-50 text-gray-600 lowercase font-medium rounded break-words"
               >
                 {tag}
               </span>
@@ -68,13 +68,13 @@ const GuestCard = ({
           </div>
 
           {/* Collapsible Bio */}
-          <div className="mb-2">
+          <div className="mb-2 min-w-0">
             <button
               type="button"
               onClick={handleToggle}
               aria-expanded={isExpanded}
               aria-controls={`guest-bio-${id}`}
-              className="flex items-center gap-2 text-sm text-foreground lowercase"
+              className="flex items-center gap-2 text-sm text-foreground lowercase min-h-[44px] touch-manipulation"
             >
               {isExpanded ? (
                 <>
@@ -90,7 +90,7 @@ const GuestCard = ({
             {isExpanded && (
               <p
                 id={`guest-bio-${id}`}
-                className="text-base text-muted-foreground leading-relaxed mt-1.5"
+                className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-1.5 break-words"
               >
                 {fullBio}
               </p>
@@ -98,11 +98,11 @@ const GuestCard = ({
           </div>
         </div>
 
-        {/* CTAs — one row, same height, left-aligned */}
-        <div className="flex flex-row items-center gap-2 flex-nowrap pt-3 mt-0 border-t border-gray-100">
+        {/* CTAs — touch-friendly min height */}
+        <div className="flex flex-row items-center gap-2 flex-wrap pt-3 mt-0 border-t border-gray-100 min-w-0">
           <a
             href={youtubeUrl}
-            className="inline-flex items-center justify-center gap-1.5 h-9 min-h-9 px-2.5 md:px-3 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] min-w-0 px-3 sm:px-4 py-2 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0 touch-manipulation"
           >
             <svg
               className="w-4 h-4 shrink-0"
@@ -119,7 +119,7 @@ const GuestCard = ({
           </a>
           <a
             href={applePodcastsUrl}
-            className="inline-flex items-center justify-center gap-1.5 h-9 min-h-9 px-2.5 md:px-3 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] min-w-0 px-3 sm:px-4 py-2 rounded-md bg-gray-50 border border-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-100 transition-colors whitespace-nowrap shrink-0 touch-manipulation"
           >
             <svg
               className="w-4 h-4 shrink-0"

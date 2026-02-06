@@ -61,20 +61,20 @@ const CornerNav = () => {
           <X className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1.5} />
         </button>
 
-        {/* Menu items */}
-        <nav className="absolute inset-0 flex items-center justify-center">
-          <ul className="flex flex-col items-center gap-2 md:gap-4">
+        {/* Menu items — touch-friendly min height */}
+        <nav className="absolute inset-0 flex items-center justify-center p-4">
+          <ul className="flex flex-col items-center gap-1 sm:gap-2 md:gap-4">
             {menuItems.map((item, index) => (
               <li key={item.label}>
                 <button
                   onClick={() => handleMenuClick(item.href)}
-                  className="group flex items-center text-primary-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold lowercase tracking-tight hover:opacity-70 transition-opacity"
+                  className="group flex items-center text-primary-foreground text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold lowercase tracking-tight hover:opacity-70 transition-opacity min-h-[44px] py-2 px-3 touch-manipulation"
                   style={{
                     animationDelay: `${index * 50}ms`,
                   }}
                 >
-                  {item.label}
-                  <span className={`w-2 h-2 md:w-3 md:h-3 rounded-full ml-1 ${item.dotColor}`} />
+                  <span className="break-words text-center">{item.label}</span>
+                  <span className={`w-2 h-2 md:w-3 md:h-3 rounded-full ml-1 shrink-0 ${item.dotColor}`} />
                 </button>
               </li>
             ))}
