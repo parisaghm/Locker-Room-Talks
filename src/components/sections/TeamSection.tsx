@@ -3,7 +3,16 @@ import parisaGhasemi from "@/assets/parisa-ghasemi.png";
 import farnazFarahdel from "@/assets/farnaz-farahdel.png";
 import teamMember3 from "@/assets/team-member-3.png";
 
-const teamMembers = [
+type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+  noHover: boolean;
+  grayscale?: boolean;
+};
+
+const teamMembers: TeamMember[] = [
   {
     name: "Farnaz Farahdel",
     role: "Concept, Conversation & Editorial Direction",
@@ -23,7 +32,8 @@ const teamMembers = [
     role: "Photography & Videography",
     image: teamMember3,
     bio: "Linda leads still photography and supports video capture on set. She specializes in portrait and lifestyle visuals, capturing clean, natural moments that preserve emotion and story with clarity and warmth.",
-    noHover: true
+    noHover: true,
+    grayscale: true
   },
 ];
 
@@ -54,7 +64,10 @@ const TeamSection = () => {
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover object-center"
-                    style={{ filter: 'brightness(0.97) contrast(0.96)', mixBlendMode: 'normal' }}
+                    style={{
+                      filter: `brightness(0.97) contrast(0.96)${member.grayscale ? ' grayscale(100%)' : ''}`,
+                      mixBlendMode: 'normal'
+                    }}
                   />
                 </div>
               </div>
