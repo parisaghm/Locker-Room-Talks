@@ -21,7 +21,7 @@ const AboutProjectSection = () => {
           </p>
         </div>
 
-        <div className="hero-bottom-group flex flex-col items-center mt-8 sm:mt-12 md:mt-20">
+        <div id="about-arrow" className="hero-bottom-group flex flex-col items-center mt-8 sm:mt-12 md:mt-20">
           <ScrollArrow targetId="team" />
         </div>
       </div>

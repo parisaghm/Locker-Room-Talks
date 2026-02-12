@@ -15,6 +15,8 @@ export interface Guest {
   slug?: string;
   /** CSS object-position value for the photo, e.g. "top", "center", "25%" */
   imagePosition?: string;
+  /** Whether to show this guest on the homepage "Meet the voices" section. Defaults to true. */
+  showOnHome?: boolean;
 }
 
 export const guests: Guest[] = [
@@ -72,5 +74,6 @@ export const guests: Guest[] = [
     youtubeUrl: "#",
     appleUrl: "#",
     imagePosition: "center 20%",
+    showOnHome: false,
   },
 ];

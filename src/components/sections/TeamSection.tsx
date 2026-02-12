@@ -1,7 +1,7 @@
-import ScrollArrow from "../ScrollArrow";
 import parisaGhasemi from "@/assets/parisa-ghasemi.png";
 import farnazFarahdel from "@/assets/farnaz-farahdel.png";
 import teamMember3 from "@/assets/team-member-3.png";
+import ScrollArrow from "../ScrollArrow";
 
 type TeamMember = {
   name: string;
@@ -39,7 +39,7 @@ const teamMembers: TeamMember[] = [
 
 const TeamSection = () => {
   return (
-    <section id="team" className="min-h-0 md:min-h-[100svh] w-full max-w-full min-w-0 relative flex flex-col justify-start md:justify-center px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:pt-12 pb-12 sm:pb-16 md:pb-24 overflow-x-hidden">
+    <section id="team" className="min-h-0 md:min-h-0 w-full max-w-full min-w-0 relative flex flex-col justify-start px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:pt-12 pb-32 md:pb-48 overflow-x-hidden">
       <div className="container mx-auto w-full min-w-0 px-0 sm:px-4">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8 md:mb-10">
@@ -81,10 +81,9 @@ const TeamSection = () => {
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="hero-bottom-group flex flex-col items-center mt-8 sm:mt-12 md:mt-20">
-        <ScrollArrow targetId="contact" />
+        <div id="team-arrow" className="hero-bottom-group flex flex-col items-center mt-8 sm:mt-12 md:mt-20">
+          <ScrollArrow targetId="contact" />
+        </div>
       </div>
     </section>
   );

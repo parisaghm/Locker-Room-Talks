@@ -9,7 +9,7 @@ const ScrollArrow = ({ targetId, label }: ScrollArrowProps) => {
   const handleClick = () => {
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
