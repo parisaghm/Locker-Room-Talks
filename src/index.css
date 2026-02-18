@@ -94,7 +94,7 @@
 
   /* Corner Navigation — touch-friendly (min 44px) */
   .corner-logo {
-    @apply fixed top-0 left-0 w-16 h-16 min-w-16 min-h-16 md:w-20 md:h-20 md:min-w-20 md:min-h-20 flex items-center justify-center z-50;
+    @apply fixed top-0 left-0 w-[72px] h-[72px] min-w-[72px] min-h-[72px] md:w-24 md:h-24 md:min-w-24 md:min-h-24 flex items-center justify-center z-50;
   }
 
   .corner-menu {
