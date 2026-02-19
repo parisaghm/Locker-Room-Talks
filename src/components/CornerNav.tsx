@@ -22,15 +22,6 @@ const CornerNav = () => {
 
   return (
     <>
-      {/* Logo Corner */}
-      <div className="corner-logo flex items-center justify-center p-1">
-        <img
-          src="/lrt-logo.svg"
-          alt="Locker Room Talks"
-          className="w-full h-full object-contain max-w-[96px] max-h-[96px] md:max-w-[112px] md:max-h-[112px]"
-        />
-      </div>
-
       {/* Menu Corner */}
       <button
         className="corner-menu"
