@@ -94,7 +94,7 @@
 
   /* Corner Navigation — touch-friendly (min 44px) */
   .corner-logo {
-    @apply fixed top-0 left-0 w-[72px] h-[72px] min-w-[72px] min-h-[72px] md:w-24 md:h-24 md:min-w-24 md:min-h-24 flex items-center justify-center z-50;
+    @apply fixed top-0 left-0 min-w-[72px] min-h-[72px] flex items-center justify-center z-50 p-2 md:p-3;
   }
 
   .corner-menu {
@@ -370,6 +370,34 @@
   }
 }
 
+/* Hero logo dot color animation (SVG circles) */
+@keyframes hero-dot-color-shift {
+  0% {
+    fill: #d6455d;
+  }
+
+  25% {
+    fill: #ff8c42;
+  }
+
+  50% {
+    fill: #f4d35e;
+  }
+
+  75% {
+    fill: #2ec4b6;
+  }
+
+  100% {
+    fill: #d6455d;
+  }
+}
+
+.hero-dot {
+  animation: hero-dot-color-shift 8s ease-in-out infinite;
+  will-change: fill;
+}
+
 .color-dot {
   display         : inline-block;
   border-radius   : 50%;
@@ -380,6 +408,10 @@
 
 /* Accessibility: Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
+  .hero-dot {
+    animation: none;
+  }
+
   .color-dot {
     animation       : none;
     background-color: #a00303;

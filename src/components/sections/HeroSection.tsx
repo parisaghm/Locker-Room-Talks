@@ -1,5 +1,4 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import ColorDot from "../ColorDot";
 import ScrollArrow from "../ScrollArrow";
 
 const HeroSection = () => {
@@ -31,7 +30,63 @@ const HeroSection = () => {
       {/* Dot + Title (NOT constrained by max-w-3xl) */}
       <div className="w-full flex flex-col items-center text-center">
         <div className="mb-6">
-          <ColorDot size={70} />
+          <svg
+            width="90"
+            height="52"
+            viewBox="0 0 90 52"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Locker Room Talks Logo"
+            className="w-32 h-auto sm:w-36 md:w-44 lg:w-52"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <path
+              d="M45.1818 7.99902C45.1818 21 42.6435 44.3949 8.12256 43.9949"
+              stroke="#000000"
+              strokeOpacity="0.8"
+              strokeWidth="13.5"
+              strokeLinecap="round"
+            />
+            <ellipse
+              cx="13.1992"
+              cy="12.9985"
+              rx="13.1992"
+              ry="12.9985"
+              className="hero-dot"
+              fill="#D45A5A"
+              fillOpacity="0.5"
+            />
+            <path
+              d="M45.3735 8.02441C45.3735 21 47.3565 45.395 81.8774 44.995"
+              stroke="#000000"
+              strokeOpacity="0.5"
+              strokeWidth="13.5"
+              strokeLinecap="round"
+            />
+            <ellipse
+              cx="13.1992"
+              cy="12.9985"
+              rx="13.1992"
+              ry="12.9985"
+              transform="matrix(-1 0 0 1 90 0.999512)"
+              className="hero-dot"
+              fill="#D45A5A"
+            />
+            <defs>
+              <linearGradient
+                id="paint0_linear_21_2"
+                x1="51.7641"
+                y1="20.454"
+                x2="86.6226"
+                y2="50.2449"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#A10203" />
+                <stop offset="1" stopColor="#A10203" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
 
         {/* Title block with video mask */}
