@@ -38,7 +38,7 @@ const HeroSection = () => {
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-label="Locker Room Talks Logo"
-            className="w-32 h-auto sm:w-36 md:w-44 lg:w-52"
+            className="w-16 h-auto sm:w-24 md:w-32 lg:w-40"
             preserveAspectRatio="xMidYMid meet"
           >
             <path
