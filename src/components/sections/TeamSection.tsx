@@ -1,6 +1,7 @@
 import parisaGhasemi from "@/assets/parisa-ghasemi.png";
 import farnazFarahdel from "@/assets/farnaz-farahdel.png";
 import teamMember3 from "@/assets/team-member-3.png";
+import angelinaVideoEditor from "@/assets/angelina-video-editor.png";
 import ScrollArrow from "../ScrollArrow";
 
 type TeamMember = {
@@ -32,8 +33,15 @@ const teamMembers: TeamMember[] = [
     role: "Photography & Videography",
     image: teamMember3,
     bio: "Linda leads still photography and supports video capture on set. She specializes in portrait and lifestyle visuals, capturing clean, natural moments that preserve emotion and story with clarity and warmth.",
-    noHover: true,
+    noHover: false,
     grayscale: true
+  },
+  {
+    name: "Angelina",
+    role: "Video Editor",
+    image: angelinaVideoEditor,
+    bio: "Video editor of Locker Room Talks. Angelina shapes the visuals of each episode: she handles the edit, pacing, and brand style to ensure each story feels as sharp and engaging for you as it does in the room.",
+    noHover: false
   },
 ];
 
@@ -53,13 +61,13 @@ const TeamSection = () => {
           </p>
         </div>
 
-        {/* Team Members — stack on mobile, 2 cols tablet, 3 cols desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto mb-6 w-full min-w-0">
+        {/* Team Members — single row on desktop, wrapped rows on smaller screens */}
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-10 max-w-[1200px] xl:max-w-[1400px] mx-auto mb-6 w-full min-w-0">
           {teamMembers.map((member, index) => (
-            <div key={index} className="flex flex-col items-center group min-w-0 w-full">
-              {/* Photo Frame — responsive aspect ratio */}
-              <div className="relative mb-4 sm:mb-6 p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem] mx-auto">
-                <div className="w-full aspect-[3/4] overflow-hidden max-h-64 sm:max-h-72 md:max-h-80">
+            <div key={index} className="flex flex-col items-center group min-w-0 w-full sm:w-[16rem] md:w-[17rem] lg:w-[18rem]">
+              {/* Photo Frame — fixed ratio/size for consistent alignment */}
+              <div className="relative mb-4 sm:mb-6 p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 w-[12rem] sm:w-[14rem] md:w-[16rem] mx-auto">
+                <div className="w-full aspect-[3/4] overflow-hidden">
                   <img
                     src={member.image}
                     alt={member.name}
