@@ -30,7 +30,7 @@ const GalleryGrid: FC<GalleryGridProps> = ({ images, onImageClick }) => {
               loading="lazy"
               decoding="async"
               onLoad={() => handleLoad(image.id)}
-              className={`w-full h-auto block transition-all duration-500 ease-out group-hover:scale-[1.03] group-hover:brightness-[0.92] ${
+              className={`w-full h-auto block grayscale transition-all duration-500 ease-out group-hover:grayscale-[30%] group-hover:scale-[1.03] ${
                 loadedSet.has(image.id)
                   ? "opacity-100"
                   : "opacity-0"
