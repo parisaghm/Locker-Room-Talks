@@ -55,13 +55,9 @@ export const galleryImages: GalleryImage[] = [
     caption: "Faces of the conversation",
   },
   {
-    id: "gallery-09",
-    src: "/images/gallery/gallery-09.png",
-    alt: "Behind the scenes — gallery image 9",
-  },
-  {
     id: "gallery-10",
     src: "/images/gallery/gallery-10.png",
-    alt: "Behind the scenes — gallery image 10",
+    alt: "Guest writing notes at the table",
+    caption: "A quiet writing moment",
   },
 ];
