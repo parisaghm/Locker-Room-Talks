@@ -1,7 +1,6 @@
 import parisaGhasemi from "@/assets/parisa-ghasemi.png";
 import farnazFarahdel from "@/assets/farnaz-farahdel.png";
 import teamMember3 from "@/assets/team-member-3.png";
-import angelinaVideoEditor from "@/assets/angelina-video-editor.png";
 import ScrollArrow from "../ScrollArrow";
 
 type TeamMember = {
@@ -35,13 +34,6 @@ const teamMembers: TeamMember[] = [
     bio: "Linda leads still photography and supports video capture on set. She specializes in portrait and lifestyle visuals, capturing clean, natural moments that preserve emotion and story with clarity and warmth.",
     noHover: false,
     grayscale: true
-  },
-  {
-    name: "Angelina",
-    role: "Video Editor",
-    image: angelinaVideoEditor,
-    bio: "Video editor of Locker Room Talks. Angelina shapes the visuals of each episode: she handles the edit, pacing, and brand style to ensure each story feels as sharp and engaging for you as it does in the room.",
-    noHover: false
   },
 ];
 
