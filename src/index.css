@@ -396,7 +396,7 @@
   /* Team section — card grid only (does not change page-section / section spacing) */
   .team-grid {
     display              : grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap                  : 48px;
     align-items          : start;
     width                : 100%;
