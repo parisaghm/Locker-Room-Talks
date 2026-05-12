@@ -30,8 +30,8 @@ export const guests: Guest[] = [
       "Hope is a licensed sosionomi and one of the founders of MIELI Without Borders, a member organization of MIELI and a non-profit organization dedicated to promoting migrant mental health. She is passionate about mental health and finding everyday ways to care for well-being. She enjoys supporting others in their lives and creating spaces where people feel connected and understood. Having lived in Finland for ten years, she appreciates the rare sunshine, loves handicrafts, and enjoys exploring new foods.",
     imageUrl: hopeMakaraPhoto,
     tags: ["mental health", "migrant wellbeing"],
-    youtubeUrl: "#",
-    appleUrl: "#",
+    youtubeUrl: "https://www.youtube.com/watch?v=K0OhTmh23Z0",
+    appleUrl: "https://podcasts.apple.com/us/podcast/locker-room-talks/id1896566745",
   },
   {
     id: "asmara-riaz",
