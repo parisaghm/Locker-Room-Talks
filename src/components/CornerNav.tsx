@@ -1,32 +1,65 @@
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const menuItems = [
   { label: "home", href: "#hero", dotColor: "bg-yellow-400" },
   { label: "team", href: "#team", dotColor: "bg-pink-500" },
   { label: "Meet the voices", href: "#contact", dotColor: "bg-green-400" },
+  { label: "journal", href: "#journal", dotColor: "bg-teal-400" },
   { label: "gallery", href: "#gallery", dotColor: "bg-amber-400" },
   { label: "contact", href: "#footer", dotColor: "bg-blue-400" },
 ];
 
 const CornerNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleMenuClick = (href: string) => {
-    setIsOpen(false);
+  const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
+  // When arriving at the home page with a pending section target (set by a
+  // menu click from another route, e.g. /voices), scroll to that section.
+  useEffect(() => {
+    const target = (location.state as { scrollTo?: string } | null)?.scrollTo;
+    if (location.pathname === "/" && target) {
+      // Clear the state so refresh/back doesn't re-trigger the scroll.
+      navigate("/", { replace: true, state: null });
+      // Wait for the home page sections to render before scrolling.
+      requestAnimationFrame(() => scrollToSection(target));
+    }
+  }, [location, navigate]);
+
+  const handleMenuClick = (href: string) => {
+    setIsOpen(false);
+    // Route links (e.g. /journal) navigate directly.
+    if (href.startsWith("/")) {
+      if (location.pathname !== href) {
+        navigate(href);
+      }
+      return;
+    }
+    // Section anchors only exist on the home page. From any other route,
+    // navigate home first and carry the target so we can scroll on arrival.
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: href } });
+      return;
+    }
+    scrollToSection(href);
+  };
+
   return (
     <>
-      {/* Menu Corner */}
+      {/* Menu Corner — toggles the overlay; hamburger morphs into an X when open */}
       <button
-        className="corner-menu"
-        aria-label="Open menu"
-        onClick={() => setIsOpen(true)}
+        className={`corner-menu${isOpen ? " corner-menu--open" : ""}`}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
         <div className="flex flex-col gap-1.5">
           <span className="menu-line"></span>
@@ -42,15 +75,6 @@ const CornerNav = () => {
       >
         {/* Dark background */}
         <div className="absolute inset-0 bg-primary" />
-
-        {/* Close button */}
-        <button
-          className="absolute top-6 right-6 md:top-8 md:right-8 text-primary-foreground hover:opacity-70 transition-opacity z-10"
-          onClick={() => setIsOpen(false)}
-          aria-label="Close menu"
-        >
-          <X className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1.5} />
-        </button>
 
         {/* Menu items — touch-friendly min height */}
         <nav className="absolute inset-0 flex items-center justify-center p-4">

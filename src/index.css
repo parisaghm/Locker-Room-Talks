@@ -105,8 +105,31 @@
   }
 
   .corner-menu {
-    @apply fixed top-0 right-0 w-16 h-16 min-w-16 min-h-16 md:w-20 md:h-20 md:min-w-20 md:min-h-20 flex items-center justify-center z-50 cursor-pointer hover:opacity-90 transition-opacity touch-manipulation;
-    background-color                                         : #a00303;
+    @apply fixed z-[110] flex items-center justify-center cursor-pointer touch-manipulation;
+    top             : 24px;
+    right           : 24px;
+    width           : 56px;
+    height          : 56px;
+    border          : none;
+    border-radius   : 7px;
+    background-color : #8E0F13;
+    box-shadow       : 0 6px 18px -6px rgba(0, 0, 0, 0.35), 0 2px 5px rgba(0, 0, 0, 0.16);
+    transition       : transform 275ms ease-in-out, box-shadow 275ms ease-in-out, background-color 275ms ease-in-out;
+  }
+
+  .corner-menu:hover {
+    transform        : translateY(-2px);
+    background-color  : #A6141A;
+    box-shadow        : 0 14px 30px -6px rgba(0, 0, 0, 0.42), 0 4px 10px rgba(0, 0, 0, 0.22);
+  }
+
+  @media (min-width: 768px) {
+    .corner-menu {
+      top   : 32px;
+      right : 32px;
+      width : 64px;
+      height: 64px;
+    }
   }
 
   /* Typography */
@@ -324,12 +347,16 @@
   /* Scroll Arrow */
   .scroll-arrow-wrapper {
     @apply absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3;
+    /* --bob-x preserves the horizontal centering while the bob keyframes drive transform */
+    --bob-x  : -50%;
+    animation: bob 2.4s ease-in-out infinite;
   }
 
   /* Hero + in-flow sections: scroll control not absolutely positioned */
   .section-scroll-group .scroll-arrow-wrapper,
   .hero-bottom-group .scroll-arrow-wrapper {
     @apply static translate-x-0 flex flex-col items-center gap-0;
+    --bob-x: 0px;
   }
 
   .scroll-arrow {
@@ -388,9 +415,24 @@
     }
   }
 
-  /* Menu hamburger */
+  /* Menu hamburger — thin white bars that morph into an X when open */
   .menu-line {
-    @apply w-6 h-0.5 bg-primary;
+    @apply w-6 h-0.5;
+    background-color: #ffffff;
+    border-radius   : 2px;
+    transition      : transform 300ms ease-in-out, opacity 200ms ease-in-out;
+  }
+
+  .corner-menu--open .menu-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .corner-menu--open .menu-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .corner-menu--open .menu-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   /* Team section — card grid only (does not change page-section / section spacing) */
@@ -437,11 +479,213 @@
       grid-template-columns: 1fr;
     }
   }
+
+  /* Journal article page — editorial long-form layout */
+  .article-page {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: clamp(5rem, 10vw, 7rem) clamp(1.25rem, 4vw, 2rem)
+      clamp(4rem, 8vw, 6rem);
+  }
+
+  .article-page-inner {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .article-header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .article-back-link {
+    align-self: flex-start;
+  }
+
+  .article-hero-image {
+    margin-top: clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .article-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .article-paragraph {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
+    line-height: 1.85;
+    color: #333333;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .article-h2 {
+    font-family: var(--font-primary);
+    font-size: clamp(1.375rem, 2.5vw, 1.625rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    line-height: 1.2;
+  }
+
+  .article-h3 {
+    font-family: var(--font-primary);
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+    line-height: 1.3;
+  }
+
+  .article-list {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
+    line-height: 1.85;
+    color: #333333;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    padding-left: 1.25rem;
+    list-style-type: disc;
+  }
+
+  .article-list li + li {
+    margin-top: 0.5rem;
+  }
+
+  .article-link {
+    color: #8E0F13;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 300ms ease, opacity 200ms ease;
+  }
+
+  .article-link:hover {
+    background-size: 100% 1px;
+    opacity: 0.85;
+  }
+
+  .article-pullquote {
+    margin: clamp(2.5rem, 5vw, 4rem) 0;
+    padding: 0 clamp(0.5rem, 3vw, 2rem);
+  }
+
+  .article-pullquote-divider {
+    width: 2.5rem;
+    height: 2px;
+    background-color: hsl(var(--accent-teal));
+    margin: 0 auto clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .article-inline-image {
+    margin: clamp(2rem, 4vw, 3rem) 0;
+  }
+
+  .article-share-divider {
+    height: 1px;
+    background-color: hsl(var(--border));
+    width: 100%;
+  }
+
+  .article-share-button {
+    @apply w-11 h-11 min-w-11 min-h-11 rounded-full border border-foreground/25 flex items-center justify-center text-foreground/70 transition-all duration-300 ease-out touch-manipulation;
+  }
+
+  .article-share-button:hover {
+    @apply border-foreground text-foreground;
+    transform: translateY(-2px);
+  }
+
+  .article-navigation {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .article-nav-card {
+    @apply block border border-foreground/15 p-6 sm:p-8 transition-all duration-300 ease-out touch-manipulation;
+    min-height: 120px;
+  }
+
+  .article-nav-card:hover {
+    @apply border-foreground/35 shadow-sm;
+    transform: translateY(-2px);
+  }
+
+  .article-nav-label {
+    @apply block text-xs font-bold tracking-[0.12em] uppercase text-[#9a9a9a] mb-4;
+  }
+
+  .article-nav-title {
+    display: block;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #1a1a1a;
+  }
+
+  .article-related {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .article-related-header {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(1rem, 2vw, 1.5rem);
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  @media (max-width: 768px) {
+    .article-page {
+      padding-top: clamp(4.5rem, 12vw, 5.5rem);
+      padding-bottom: clamp(3rem, 6vw, 4rem);
+    }
+
+    .article-page-inner {
+      gap: clamp(2rem, 4vw, 2.5rem);
+    }
+
+    .article-pullquote {
+      margin: clamp(2rem, 4vw, 2.5rem) 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .article-nav-card:hover,
+    .article-share-button:hover {
+      transform: none;
+    }
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* Scroll arrow — subtle floating / bobbing motion.
+   translateX(var(--bob-x)) keeps the absolute variant centered (-50%) while
+   the in-flow variant sits at 0. */
+@keyframes bob {
+
+  0%,
+  100% {
+    transform: translateX(var(--bob-x, 0)) translateY(0);
+  }
+
+  50% {
+    transform: translateX(var(--bob-x, 0)) translateY(-8px);
   }
 }
 
@@ -541,5 +785,9 @@
   .color-dot {
     animation       : none;
     background-color: #a00303;
+  }
+
+  .scroll-arrow-wrapper {
+    animation: none;
   }
 }
