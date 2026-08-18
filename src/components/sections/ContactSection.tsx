@@ -17,7 +17,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="page-section">
+    <section id="contact" className="page-section home-content-section">
       <div className="section-container">
         <header className="text-center section-heading-block">
           <h2 className="heading-lg">
@@ -58,7 +58,7 @@ const ContactSection = () => {
         </div>
 
         <div className="section-scroll-group">
-          <ScrollArrow targetId="journal" />
+          <ScrollArrow targetId="gallery" />
         </div>
       </div>
 

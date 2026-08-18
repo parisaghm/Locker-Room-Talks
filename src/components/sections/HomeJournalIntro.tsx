@@ -3,7 +3,7 @@ import LatestJournalSection from "./LatestJournalSection";
 
 const HomeJournalIntro = () => {
   return (
-    <section id="journal" className="page-section">
+    <section id="journal" className="page-section home-content-section">
       <div className="section-container">
         <header className="text-center section-heading-block">
           <h2 className="heading-lg mb-4 break-words">
@@ -17,7 +17,7 @@ const HomeJournalIntro = () => {
         <LatestJournalSection />
 
         <div className="section-scroll-group">
-          <ScrollArrow targetId="gallery" />
+          <ScrollArrow targetId="team" />
         </div>
       </div>
     </section>

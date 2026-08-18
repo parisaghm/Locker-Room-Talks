@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 interface ScrollArrowProps {
   targetId: string;
@@ -7,10 +8,7 @@ interface ScrollArrowProps {
 
 const ScrollArrow = ({ targetId, label }: ScrollArrowProps) => {
   const handleClick = () => {
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    scrollToSection(targetId);
   };
 
   return (

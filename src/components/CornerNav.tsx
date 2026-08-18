@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 const menuItems = [
   { label: "home", href: "#hero", dotColor: "bg-yellow-400" },
@@ -14,13 +15,6 @@ const CornerNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
 
   // When arriving at the home page with a pending section target (set by a
   // menu click from another route, e.g. /voices), scroll to that section.
@@ -69,33 +63,35 @@ const CornerNav = () => {
       </button>
 
       {/* Sliding Menu Overlay */}
-      <div
-        className={`fixed inset-0 z-[100] transition-transform duration-500 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-      >
-        {/* Dark background */}
-        <div className="absolute inset-0 bg-primary" />
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-[100] transition-transform duration-500 ease-out translate-x-0 pointer-events-auto"
+          aria-hidden={!isOpen}
+        >
+          {/* Dark background */}
+          <div className="absolute inset-0 bg-primary" />
 
-        {/* Menu items — touch-friendly min height */}
-        <nav className="absolute inset-0 flex items-center justify-center p-4">
-          <ul className="flex flex-col items-center gap-1 sm:gap-2 md:gap-4">
-            {menuItems.map((item, index) => (
-              <li key={item.label}>
-                <button
-                  onClick={() => handleMenuClick(item.href)}
-                  className="group flex items-center text-primary-foreground text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold lowercase tracking-tight hover:opacity-70 transition-opacity min-h-[44px] py-2 px-3 touch-manipulation"
-                  style={{
-                    animationDelay: `${index * 50}ms`,
-                  }}
-                >
-                  <span className="break-words text-center">{item.label}</span>
-                  <span className={`w-2 h-2 md:w-3 md:h-3 rounded-full ml-1 shrink-0 ${item.dotColor}`} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+          {/* Menu items — touch-friendly min height */}
+          <nav className="absolute inset-0 flex items-center justify-center p-4">
+            <ul className="flex flex-col items-center gap-1 sm:gap-2 md:gap-4">
+              {menuItems.map((item, index) => (
+                <li key={item.label}>
+                  <button
+                    onClick={() => handleMenuClick(item.href)}
+                    className="group flex items-center text-primary-foreground text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold lowercase tracking-tight hover:opacity-70 transition-opacity min-h-[44px] py-2 px-3 touch-manipulation"
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                    }}
+                  >
+                    <span className="break-words text-center">{item.label}</span>
+                    <span className={`w-2 h-2 md:w-3 md:h-3 rounded-full ml-1 shrink-0 ${item.dotColor}`} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )}
     </>
   );
 };

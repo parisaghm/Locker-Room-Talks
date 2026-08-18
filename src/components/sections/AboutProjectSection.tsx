@@ -2,7 +2,7 @@ import ScrollArrow from "../ScrollArrow";
 
 const AboutProjectSection = () => {
   return (
-    <section id="about" className="page-section">
+    <section id="about" className="page-section home-content-section">
       <div className="section-container">
         <header className="text-center section-heading-block">
           <h2 className="heading-lg break-words">
@@ -17,7 +17,7 @@ const AboutProjectSection = () => {
         </div>
 
         <div className="section-scroll-group">
-          <ScrollArrow targetId="team" />
+          <ScrollArrow targetId="journal" />
         </div>
       </div>
     </section>
