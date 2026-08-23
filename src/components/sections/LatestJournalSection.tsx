@@ -2,6 +2,7 @@ import type { MouseEvent, PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   featuredJournalArticle,
+  getArticleSubtitle,
   type JournalArticle,
 } from "@/data/journalArticles";
 
@@ -25,11 +26,6 @@ const JournalCategory = ({ children }: { children: string }) => (
 
 type JournalNavLinkProps = PropsWithChildren<{
   to: string;
-  className: string;
-  ariaLabel?: string;
-}>;
-
-type DisabledJournalCtaProps = PropsWithChildren<{
   className: string;
   ariaLabel?: string;
 }>;
@@ -70,61 +66,36 @@ const JournalNavLink = ({
   );
 };
 
-const DisabledJournalCta = ({
-  className,
-  ariaLabel,
-  children,
-}: DisabledJournalCtaProps) => {
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleClick}
-      className={className}
-      aria-label={ariaLabel}
-      aria-disabled="true"
-    >
-      {children}
-    </button>
-  );
-};
-
 const FeaturedArticleMeta = ({ article }: { article: JournalArticle }) => {
-  if (!article.author && !article.date && !article.readTime) {
+  if (!article.author && !article.photographer && !article.date && !article.readTime) {
     return null;
   }
 
   return (
-    <p className="text-xs sm:text-sm leading-normal mb-10 sm:mb-12">
+    <div className="text-xs sm:text-sm leading-relaxed mb-8 sm:mb-10">
       {article.author && (
-        <span className="font-semibold text-[#1a1a1a]">{article.author}</span>
+        <p className="font-semibold text-[#1a1a1a]">{article.author}</p>
       )}
-      {article.date && (
-        <>
-          {article.author && (
-            <span className="text-[#9a9a9a]"> • </span>
+      {article.photographer && (
+        <p className="text-[#1a1a1a] mt-0.5">
+          Photography by {article.photographer}
+        </p>
+      )}
+      {!article.photographer && (article.date || article.readTime) && (
+        <p className="text-[#9a9a9a] mt-0.5">
+          {article.date}
+          {article.date && article.readTime && (
+            <span aria-hidden="true"> • </span>
           )}
-          <span className="text-[#9a9a9a]">{article.date}</span>
-        </>
+          {article.readTime}
+        </p>
       )}
-      {article.readTime && (
-        <>
-          {(article.author || article.date) && (
-            <span className="text-[#9a9a9a]"> • </span>
-          )}
-          <span className="text-[#9a9a9a]">{article.readTime}</span>
-        </>
-      )}
-    </p>
+    </div>
   );
 };
 
 const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
-  <article className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 lg:items-center w-full min-w-0">
+  <article className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 md:items-center w-full min-w-0">
     <JournalNavLink
       to={`/journal/${article.slug}`}
       className="group block min-w-0"
@@ -137,34 +108,35 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
             alt={article.imageAlt ?? article.title}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover grayscale transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            className="w-full h-full object-cover object-center grayscale transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
         </div>
       </div>
     </JournalNavLink>
 
-    <div className="flex flex-col min-w-0 text-left justify-center w-full max-w-full lg:max-w-[500px]">
+    <div className="flex flex-col min-w-0 text-left justify-center w-full max-w-full md:max-w-[500px]">
       <JournalCategory>{article.category}</JournalCategory>
 
       <JournalNavLink
         to={`/journal/${article.slug}`}
-        className="group/title inline-block self-start touch-manipulation"
+        className="group/title block w-full min-w-0 touch-manipulation"
         ariaLabel={`Read ${article.title}`}
       >
-        <h3 className="text-[2rem] sm:text-[2.25rem] md:text-[2.5rem] lg:text-[2.75rem] font-bold tracking-[-0.02em] leading-[1.05] text-[#1a1a1a] break-words mb-5 sm:mb-6 transition-opacity duration-200 group-hover/title:opacity-75">
+        <h3 className="text-[1.75rem] sm:text-[2.125rem] md:text-[2.375rem] lg:text-[2.5rem] font-bold tracking-[-0.02em] leading-[1.08] text-[#1a1a1a] text-balance break-words mb-4 sm:mb-5 transition-opacity duration-200 group-hover/title:opacity-75">
           {article.title}
         </h3>
       </JournalNavLink>
 
-      {article.excerpt && (
-        <p className="text-base sm:text-lg leading-[1.55] text-[#555555] mb-8 sm:mb-9 break-words italic [font-family:'DM_Serif_Display',Georgia,serif]">
-          {article.excerpt}
+      {getArticleSubtitle(article) && (
+        <p className="text-[0.9375rem] sm:text-base md:text-[1.0625rem] leading-[1.45] text-[#555555] mb-6 sm:mb-7 break-words text-pretty italic [font-family:'DM_Serif_Display',Georgia,serif]">
+          {getArticleSubtitle(article)}
         </p>
       )}
 
       <FeaturedArticleMeta article={article} />
 
-      <DisabledJournalCta
+      <JournalNavLink
+        to={`/journal/${article.slug}`}
         className="group relative z-10 pointer-events-auto inline-flex items-center gap-1.5 min-h-[44px] py-2 px-1 -ml-1 text-sm sm:text-[0.9375rem] font-semibold text-[#8E0F13] hover:opacity-70 transition-opacity duration-200 self-start touch-manipulation"
         ariaLabel={`Read ${article.title}`}
       >
@@ -175,7 +147,7 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
         >
           →
         </span>
-      </DisabledJournalCta>
+      </JournalNavLink>
     </div>
   </article>
 );
@@ -190,13 +162,14 @@ const LatestJournalSection = () => {
       <FeaturedArticle article={featuredJournalArticle} />
 
       <div className="section-follow-block text-center">
-        <DisabledJournalCta
+        <JournalNavLink
+          to="/journal"
           className="relative z-10 pointer-events-auto inline-flex items-center gap-2 min-h-[44px] py-2 px-1 text-sm font-semibold text-foreground hover:opacity-70 transition-opacity duration-[250ms] border-b border-foreground touch-manipulation"
           ariaLabel="Explore the Journal"
         >
           Explore the Journal
           <ArrowIcon className="w-4 h-4" />
-        </DisabledJournalCta>
+        </JournalNavLink>
       </div>
     </div>
   );

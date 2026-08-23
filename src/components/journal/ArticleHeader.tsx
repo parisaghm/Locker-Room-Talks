@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import type { JournalArticle } from "@/data/journalArticles";
+import {
+  getArticleSubtitle,
+  type JournalArticle,
+} from "@/data/journalArticles";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
 
 interface ArticleHeaderProps {
@@ -23,51 +26,51 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
       }`}
     >
       <Link
-        to="/"
-        state={{ scrollTo: "#journal" }}
+        to="/journal"
         className="article-back-link inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-[0.1em] uppercase text-[#8E0F13] hover:opacity-70 transition-opacity duration-200 mb-10 sm:mb-14 self-start"
       >
         <span aria-hidden="true">←</span>
-        Back to Journal
+        The Journal
       </Link>
 
       <div className="mx-auto w-full max-w-[800px]">
         <ArticleCategory>{article.category}</ArticleCategory>
 
-        <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem] font-bold tracking-[-0.02em] leading-[1.08] text-[#1a1a1a] text-balance mb-6 sm:mb-8">
+        <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3rem] font-bold tracking-[-0.02em] leading-[1.08] text-[#1a1a1a] text-balance mb-5 sm:mb-7">
           {article.title}
         </h1>
 
-        {article.excerpt && (
-          <p className="text-lg sm:text-xl md:text-[1.35rem] leading-[1.5] text-[#555555] mb-8 sm:mb-10 text-balance italic [font-family:'DM_Serif_Display',Georgia,serif]">
-            {article.excerpt}
+        {getArticleSubtitle(article) && (
+          <p className="text-base sm:text-lg md:text-xl leading-[1.45] text-[#555555] mb-7 sm:mb-9 text-pretty italic [font-family:'DM_Serif_Display',Georgia,serif]">
+            {getArticleSubtitle(article)}
           </p>
         )}
 
-        {(article.author || article.date || article.readTime) && (
-          <p className="text-xs sm:text-sm leading-normal">
+        {(article.author ||
+          article.photographer ||
+          article.date ||
+          article.readTime) && (
+          <div className="text-xs sm:text-sm leading-relaxed">
             {article.author && (
-              <span className="font-semibold text-[#1a1a1a]">
-                {article.author}
-              </span>
+              <p className="font-semibold text-[#1a1a1a]">
+                By {article.author}
+              </p>
             )}
-            {article.date && (
-              <>
-                {article.author && (
-                  <span className="text-[#9a9a9a]"> · </span>
+            {article.photographer && (
+              <p className="text-[#9a9a9a] mt-1">
+                Photography by {article.photographer}
+              </p>
+            )}
+            {!article.photographer && (article.date || article.readTime) && (
+              <p className="text-[#9a9a9a] mt-1">
+                {article.date}
+                {article.date && article.readTime && (
+                  <span aria-hidden="true"> · </span>
                 )}
-                <span className="text-[#9a9a9a]">{article.date}</span>
-              </>
+                {article.readTime}
+              </p>
             )}
-            {article.readTime && (
-              <>
-                {(article.author || article.date) && (
-                  <span className="text-[#9a9a9a]"> · </span>
-                )}
-                <span className="text-[#9a9a9a]">{article.readTime}</span>
-              </>
-            )}
-          </p>
+          </div>
         )}
       </div>
     </header>

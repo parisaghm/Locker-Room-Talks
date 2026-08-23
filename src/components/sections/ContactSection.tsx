@@ -58,7 +58,7 @@ const ContactSection = () => {
         </div>
 
         <div className="section-scroll-group">
-          <ScrollArrow targetId="gallery" />
+          <ScrollArrow targetId="journal" />
         </div>
       </div>
 

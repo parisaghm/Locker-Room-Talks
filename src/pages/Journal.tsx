@@ -17,9 +17,15 @@ const Journal = () => {
   });
 
   const filteredArticles = useMemo(() => {
-    if (activeCategory === "All") return journalArticles;
-    return journalArticles.filter(
-      (article) => article.category === activeCategory
+    const articles =
+      activeCategory === "All"
+        ? journalArticles
+        : journalArticles.filter(
+            (article) => article.category === activeCategory
+          );
+
+    return [...articles].sort(
+      (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))
     );
   }, [activeCategory]);
 

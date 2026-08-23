@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import type { JournalArticle } from "@/data/journalArticles";
+import {
+  getArticleSubtitle,
+  type JournalArticle,
+} from "@/data/journalArticles";
 
 interface JournalCardProps {
   article: JournalArticle;
@@ -20,7 +23,7 @@ const JournalCard = ({ article }: JournalCardProps) => {
               alt={article.imageAlt ?? article.title}
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover grayscale transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              className="w-full h-full object-cover object-center grayscale transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
           </div>
         </div>
@@ -29,7 +32,7 @@ const JournalCard = ({ article }: JournalCardProps) => {
           {article.category}
         </span>
 
-        <h2 className="text-xl sm:text-2xl font-bold tracking-[-0.01em] leading-[1.15] text-[#1a1a1a] break-words mb-3 group-hover:opacity-70 transition-opacity duration-200">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-[-0.01em] leading-[1.15] text-[#1a1a1a] break-words text-balance mb-3 group-hover:opacity-70 transition-opacity duration-200">
           {article.title}
           <span
             aria-hidden="true"
@@ -39,19 +42,15 @@ const JournalCard = ({ article }: JournalCardProps) => {
           </span>
         </h2>
 
-        {article.excerpt && (
-          <p className="text-sm sm:text-base leading-[1.6] text-[#555555] break-words mb-4 [font-family:'DM_Serif_Display',Georgia,serif]">
-            {article.excerpt}
+        {getArticleSubtitle(article) && (
+          <p className="text-sm sm:text-base leading-[1.5] text-[#555555] break-words text-pretty mb-4 [font-family:'DM_Serif_Display',Georgia,serif]">
+            {getArticleSubtitle(article)}
           </p>
         )}
 
-        {(article.date || article.readTime) && (
-          <p className="text-xs sm:text-sm text-[#9a9a9a]">
-            {article.date}
-            {article.date && article.readTime && (
-              <span aria-hidden="true"> · </span>
-            )}
-            {article.readTime}
+        {article.author && (
+          <p className="text-xs sm:text-sm font-semibold text-[#1a1a1a]">
+            {article.author}
           </p>
         )}
       </Link>

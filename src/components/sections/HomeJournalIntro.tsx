@@ -17,7 +17,7 @@ const HomeJournalIntro = () => {
         <LatestJournalSection />
 
         <div className="section-scroll-group">
-          <ScrollArrow targetId="team" />
+          <ScrollArrow targetId="gallery" />
         </div>
       </div>
     </section>

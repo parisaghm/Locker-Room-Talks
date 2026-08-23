@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { galleryImages } from "@/data/galleryImages";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import GalleryLightbox from "@/components/gallery/GalleryLightbox";
+import ScrollArrow from "@/components/ScrollArrow";
 
 const GallerySection = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -24,7 +25,7 @@ const GallerySection = () => {
         <div className="section-container">
           <header className="text-center section-heading-block">
             <h2 className="heading-lg mb-4 break-words">
-              gallery<span className="dot-teal"></span>
+              gallery<span className="dot-amber"></span>
             </h2>
             <p className="body-text text-muted-foreground max-w-xl mx-auto">
               Behind the scenes — moments from our conversations.
@@ -32,6 +33,10 @@ const GallerySection = () => {
           </header>
 
           <GalleryGrid images={galleryImages} onImageClick={openLightbox} />
+
+          <div className="section-scroll-group">
+            <ScrollArrow targetId="team" />
+          </div>
         </div>
       </section>
 

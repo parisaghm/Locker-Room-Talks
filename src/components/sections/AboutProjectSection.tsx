@@ -6,7 +6,7 @@ const AboutProjectSection = () => {
       <div className="section-container">
         <header className="text-center section-heading-block">
           <h2 className="heading-lg break-words">
-            About the project<span className="dot-teal"></span>
+            About the project<span className="dot-yellow"></span>
           </h2>
         </header>
 
@@ -17,7 +17,7 @@ const AboutProjectSection = () => {
         </div>
 
         <div className="section-scroll-group">
-          <ScrollArrow targetId="journal" />
+          <ScrollArrow targetId="contact" />
         </div>
       </div>
     </section>

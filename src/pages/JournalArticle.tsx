@@ -12,6 +12,8 @@ import {
   getArticleBySlug,
   getAdjacentArticles,
   getRelatedArticles,
+  getArticleBody,
+  getArticleDescription,
 } from "@/data/journalArticles";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
@@ -23,7 +25,7 @@ const JournalArticle = () => {
     title: article
       ? `${article.title} — Locker Room Talks`
       : "Article not found — Locker Room Talks",
-    description: article?.excerpt,
+    description: article ? getArticleDescription(article) : undefined,
     ogImage: article?.imageUrl,
   });
 
@@ -33,6 +35,7 @@ const JournalArticle = () => {
 
   const { previous, next } = getAdjacentArticles(article.slug);
   const related = getRelatedArticles(article.slug);
+  const body = getArticleBody(article);
 
   return (
     <>
@@ -49,9 +52,7 @@ const JournalArticle = () => {
               />
             )}
 
-            {article.content && article.content.length > 0 && (
-              <ArticleBody content={article.content} />
-            )}
+            {body.length > 0 && <ArticleBody content={body} />}
 
             <ShareSection title={article.title} slug={article.slug} />
             <ArticleNavigation previous={previous} next={next} />

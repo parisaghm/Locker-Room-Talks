@@ -31,10 +31,12 @@
     --muted           : 0 0% 90%;
     --muted-foreground: 0 0% 45%;
 
-    --accent-pink  : 330 65% 55%;
-    --accent-yellow: 48 100% 50%;
-    --accent-teal  : 175 70% 45%;
-    --accent-green : 85 60% 50%;
+    --accent-pink  : 330 81% 60%;
+    --accent-yellow: 48 96% 53%;
+    --accent-teal  : 172 66% 50%;
+    --accent-green : 142 69% 58%;
+    --accent-amber : 43 96% 56%;
+    --accent-blue  : 213 94% 68%;
 
     --destructive           : 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -158,25 +160,29 @@
     @apply heading-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
   }
 
-  /* Accent Dots */
+  /* Accent Dots — same palette as the corner menu */
   .dot-pink {
-    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color              : hsl(var(--accent-pink));
+    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1 bg-pink-500;
   }
 
   .dot-yellow {
-    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color              : hsl(var(--accent-yellow));
+    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1 bg-yellow-400;
   }
 
   .dot-teal {
-    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color              : hsl(var(--accent-teal));
+    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1 bg-teal-400;
   }
 
   .dot-green {
-    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1;
-    background-color              : hsl(var(--accent-green));
+    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1 bg-green-400;
+  }
+
+  .dot-amber {
+    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1 bg-amber-400;
+  }
+
+  .dot-blue {
+    @apply inline-block w-3 h-3 md:w-4 md:h-4 rounded-full ml-1 bg-blue-400;
   }
 
   /* Tagline — ideas.built-style: editorial serif + bold sans, no skew/transform */

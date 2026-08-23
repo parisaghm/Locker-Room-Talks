@@ -21,15 +21,26 @@ export interface JournalArticle {
   id: string;
   slug: string;
   title: string;
+  subtitle?: string;
   category: string;
   excerpt?: string;
+  standfirst?: string;
   author?: string;
+  photographer?: string;
   date?: string;
-  readTime: string;
+  readTime?: string;
   imageUrl?: string;
   imageAlt?: string;
   featured?: boolean;
   content?: ArticleContentBlock[];
+}
+
+export function getArticleSubtitle(article: JournalArticle): string | undefined {
+  return article.subtitle ?? article.excerpt;
+}
+
+export function getArticleDescription(article: JournalArticle): string | undefined {
+  return article.standfirst ?? article.excerpt ?? article.subtitle;
 }
 
 export const journalCategories = [
@@ -42,6 +53,22 @@ export const journalCategories = [
 ] as const;
 
 export const journalArticles: JournalArticle[] = [
+  {
+    id: "what-does-it-mean-to-belong",
+    slug: "what-does-it-mean-to-belong",
+    title: "What Does It Mean to Belong?",
+    subtitle:
+      "Hope Makara’s Search for Home in Finland—and Within Herself",
+    category: "Identity",
+    standfirst:
+      "For ten years, Hope Makara has built a life in Finland. She learned the language, built a family, found a community and dedicated her work to supporting migrants. Yet the biggest question she had to answer wasn't where she belonged; it was whether belonging was something anyone could give her in the first place.",
+    author: "Farnaz Farahdel",
+    photographer: "Linda Wang",
+    imageUrl: "/images/journal/what-does-it-mean-to-belong.png",
+    imageAlt:
+      "Hope Makara and Farnaz Farahdel standing together in the recording space",
+    featured: true,
+  },
   {
     id: "home-is-a-conversation",
     slug: "home-is-a-conversation",
@@ -92,9 +119,8 @@ export const journalArticles: JournalArticle[] = [
     author: "Farnaz Farahdel",
     date: "May 2025",
     readTime: "7 min read",
-    imageUrl: "/images/journal/the-weight-of-a-new-language.png",
-    imageAlt: "Fog rolling over a pine-covered mountain slope",
-    featured: true,
+    imageUrl: "/images/gallery/gallery-02.png",
+    imageAlt: "People gathered in conversation at a tram stop",
     content: [
       {
         type: "paragraph",
@@ -381,6 +407,14 @@ export const journalArticles: JournalArticle[] = [
 
 export const featuredJournalArticle =
   journalArticles.find((article) => article.featured) ?? journalArticles[0];
+
+export function getArticleBody(article: JournalArticle): ArticleContentBlock[] {
+  const opening: ArticleContentBlock[] = article.standfirst
+    ? [{ type: "paragraph", text: article.standfirst }]
+    : [];
+
+  return [...opening, ...(article.content ?? [])];
+}
 
 export function getArticleBySlug(slug: string): JournalArticle | undefined {
   return journalArticles.find((article) => article.slug === slug);

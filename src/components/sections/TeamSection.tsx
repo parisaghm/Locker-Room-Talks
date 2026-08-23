@@ -1,7 +1,6 @@
 import parisaGhasemi from "@/assets/parisa-ghasemi.png";
 import farnazFarahdel from "@/assets/farnaz-farahdel.png";
 import teamMember3 from "@/assets/team-member-3.png";
-import ScrollArrow from "../ScrollArrow";
 
 type TeamMember = {
   name: string;
@@ -43,7 +42,7 @@ const TeamSection = () => {
       <div className="section-container">
         <header className="text-center section-heading-block">
           <h2 className="heading-lg mb-4 break-words">
-            team<span className="dot-teal"></span>
+            team<span className="dot-pink"></span>
           </h2>
           <p className="body-text max-w-2xl mx-auto break-words">
             Created by a small, independent team working across editorial, production, and visual design.
@@ -75,10 +74,6 @@ const TeamSection = () => {
               </p>
             </div>
           ))}
-        </div>
-
-        <div className="section-scroll-group">
-          <ScrollArrow targetId="contact" />
         </div>
       </div>
     </section>
