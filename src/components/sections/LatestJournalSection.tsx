@@ -2,6 +2,8 @@ import type { MouseEvent, PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   featuredJournalArticle,
+  getArticleImageUrl,
+  getArticleReadingTime,
   getArticleSubtitle,
   type JournalArticle,
 } from "@/data/journalArticles";
@@ -67,7 +69,9 @@ const JournalNavLink = ({
 };
 
 const FeaturedArticleMeta = ({ article }: { article: JournalArticle }) => {
-  if (!article.author && !article.photographer && !article.date && !article.readTime) {
+  const readingTime = getArticleReadingTime(article);
+
+  if (!article.author && !article.photographer && !readingTime) {
     return null;
   }
 
@@ -76,19 +80,8 @@ const FeaturedArticleMeta = ({ article }: { article: JournalArticle }) => {
       {article.author && (
         <p className="font-semibold text-[#1a1a1a]">{article.author}</p>
       )}
-      {article.photographer && (
-        <p className="text-[#1a1a1a] mt-0.5">
-          Photography by {article.photographer}
-        </p>
-      )}
-      {!article.photographer && (article.date || article.readTime) && (
-        <p className="text-[#9a9a9a] mt-0.5">
-          {article.date}
-          {article.date && article.readTime && (
-            <span aria-hidden="true"> • </span>
-          )}
-          {article.readTime}
-        </p>
+      {readingTime && (
+        <p className="text-[#9a9a9a] mt-0.5">{readingTime}</p>
       )}
     </div>
   );
@@ -104,7 +97,7 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
       <div className="relative p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300">
         <div className="aspect-[16/10] overflow-hidden">
           <img
-            src={article.imageUrl}
+            src={getArticleImageUrl(article)}
             alt={article.imageAlt ?? article.title}
             loading="lazy"
             decoding="async"

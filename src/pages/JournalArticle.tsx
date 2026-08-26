@@ -14,6 +14,7 @@ import {
   getRelatedArticles,
   getArticleBody,
   getArticleDescription,
+  getArticleImageUrl,
 } from "@/data/journalArticles";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
@@ -26,7 +27,7 @@ const JournalArticle = () => {
       ? `${article.title} — Locker Room Talks`
       : "Article not found — Locker Room Talks",
     description: article ? getArticleDescription(article) : undefined,
-    ogImage: article?.imageUrl,
+    ogImage: article ? getArticleImageUrl(article) : undefined,
   });
 
   if (!article) {
@@ -45,9 +46,9 @@ const JournalArticle = () => {
           <div className="article-page-inner">
             <ArticleHeader article={article} />
 
-            {article.imageUrl && (
+            {getArticleImageUrl(article) && (
               <HeroImage
-                src={article.imageUrl}
+                src={getArticleImageUrl(article)!}
                 alt={article.imageAlt ?? article.title}
               />
             )}

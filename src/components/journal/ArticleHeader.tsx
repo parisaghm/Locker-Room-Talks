@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {
+  getArticleReadingTime,
   getArticleSubtitle,
   type JournalArticle,
 } from "@/data/journalArticles";
@@ -33,7 +34,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
         The Journal
       </Link>
 
-      <div className="mx-auto w-full max-w-[800px]">
+      <div className="article-header-inner">
         <ArticleCategory>{article.category}</ArticleCategory>
 
         <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3rem] font-bold tracking-[-0.02em] leading-[1.08] text-[#1a1a1a] text-balance mb-5 sm:mb-7">
@@ -49,7 +50,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
         {(article.author ||
           article.photographer ||
           article.date ||
-          article.readTime) && (
+          getArticleReadingTime(article)) && (
           <div className="text-xs sm:text-sm leading-relaxed">
             {article.author && (
               <p className="font-semibold text-[#1a1a1a]">
@@ -61,13 +62,13 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
                 Photography by {article.photographer}
               </p>
             )}
-            {!article.photographer && (article.date || article.readTime) && (
+            {(article.date || getArticleReadingTime(article)) && (
               <p className="text-[#9a9a9a] mt-1">
                 {article.date}
-                {article.date && article.readTime && (
+                {article.date && getArticleReadingTime(article) && (
                   <span aria-hidden="true"> · </span>
                 )}
-                {article.readTime}
+                {getArticleReadingTime(article)}
               </p>
             )}
           </div>

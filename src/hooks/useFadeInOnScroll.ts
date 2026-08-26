@@ -8,7 +8,7 @@ interface UseFadeInOnScrollOptions {
 export function useFadeInOnScroll<T extends HTMLElement = HTMLDivElement>(
   options: UseFadeInOnScrollOptions = {}
 ) {
-  const { threshold = 0.12, rootMargin = "0px 0px -8% 0px" } = options;
+  const { threshold = 0.01, rootMargin = "80px 0px 30% 0px" } = options;
   const ref = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
 

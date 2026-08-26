@@ -1,13 +1,21 @@
+import { hopeMakaraArticle } from "@/content/journal/hope-makara";
+
 export type ArticleContentBlock =
   | { type: "paragraph"; text: string }
+  | { type: "standfirst"; text: string }
   | { type: "heading"; level: 2 | 3; text: string }
-  | { type: "pullquote"; text: string }
+  | { type: "pullquote"; text?: string; lines?: string[] }
   | {
       type: "image";
       src: string;
       alt: string;
       caption?: string;
+      layout?: "column" | "wide";
+      crop?: "cover" | "natural";
+      monochrome?: boolean;
     }
+  | { type: "image-caption"; text: string }
+  | { type: "short-line-sequence"; lines: string[] }
   | { type: "list"; items: string[] }
   | {
       type: "paragraph-with-link";
@@ -28,8 +36,11 @@ export interface JournalArticle {
   author?: string;
   photographer?: string;
   date?: string;
+  publishedAt?: string;
   readTime?: string;
+  readingTime?: string;
   imageUrl?: string;
+  featuredImage?: string;
   imageAlt?: string;
   featured?: boolean;
   content?: ArticleContentBlock[];
@@ -43,6 +54,14 @@ export function getArticleDescription(article: JournalArticle): string | undefin
   return article.standfirst ?? article.excerpt ?? article.subtitle;
 }
 
+export function getArticleImageUrl(article: JournalArticle): string | undefined {
+  return article.featuredImage ?? article.imageUrl;
+}
+
+export function getArticleReadingTime(article: JournalArticle): string | undefined {
+  return article.readingTime ?? article.readTime;
+}
+
 export const journalCategories = [
   "All",
   "Migration",
@@ -53,22 +72,7 @@ export const journalCategories = [
 ] as const;
 
 export const journalArticles: JournalArticle[] = [
-  {
-    id: "what-does-it-mean-to-belong",
-    slug: "what-does-it-mean-to-belong",
-    title: "What Does It Mean to Belong?",
-    subtitle:
-      "Hope Makara’s Search for Home in Finland—and Within Herself",
-    category: "Identity",
-    standfirst:
-      "For ten years, Hope Makara has built a life in Finland. She learned the language, built a family, found a community and dedicated her work to supporting migrants. Yet the biggest question she had to answer wasn't where she belonged; it was whether belonging was something anyone could give her in the first place.",
-    author: "Farnaz Farahdel",
-    photographer: "Linda Wang",
-    imageUrl: "/images/journal/what-does-it-mean-to-belong.png",
-    imageAlt:
-      "Hope Makara and Farnaz Farahdel standing together in the recording space",
-    featured: true,
-  },
+  hopeMakaraArticle,
   {
     id: "home-is-a-conversation",
     slug: "home-is-a-conversation",
@@ -410,7 +414,7 @@ export const featuredJournalArticle =
 
 export function getArticleBody(article: JournalArticle): ArticleContentBlock[] {
   const opening: ArticleContentBlock[] = article.standfirst
-    ? [{ type: "paragraph", text: article.standfirst }]
+    ? [{ type: "standfirst", text: article.standfirst }]
     : [];
 
   return [...opening, ...(article.content ?? [])];

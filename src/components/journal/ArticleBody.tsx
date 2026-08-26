@@ -9,14 +9,20 @@ interface ArticleBodyProps {
   content: ArticleContentBlock[];
 }
 
-const FadeParagraph = ({ children }: { children: ReactNode }) => {
+const FadeParagraph = ({
+  children,
+  className = "article-paragraph",
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   const { ref, isVisible } = useFadeInOnScroll<HTMLParagraphElement>();
 
   return (
     <p
       ref={ref}
-      className={`article-paragraph transition-all duration-700 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      className={`${className} article-reveal ${
+        isVisible ? "is-revealed" : ""
       }`}
     >
       {children}
@@ -33,17 +39,12 @@ const FadeHeading = ({
 }) => {
   const { ref, isVisible } = useFadeInOnScroll<HTMLHeadingElement>();
   const Tag = level === 2 ? "h2" : "h3";
-  const className =
-    level === 2
-      ? "article-h2 transition-all duration-700 ease-out"
-      : "article-h3 transition-all duration-700 ease-out";
+  const className = level === 2 ? "article-h2" : "article-h3";
 
   return (
     <Tag
       ref={ref}
-      className={`${className} ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      className={`${className} article-reveal ${isVisible ? "is-revealed" : ""}`}
     >
       {children}
     </Tag>
@@ -56,9 +57,7 @@ const FadeList = ({ items }: { items: string[] }) => {
   return (
     <ul
       ref={ref}
-      className={`article-list transition-all duration-700 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      className={`article-list article-reveal ${isVisible ? "is-revealed" : ""}`}
     >
       {items.map((item) => (
         <li key={item}>{item}</li>
@@ -67,11 +66,52 @@ const FadeList = ({ items }: { items: string[] }) => {
   );
 };
 
+const FadeShortLines = ({ lines }: { lines: string[] }) => {
+  const { ref, isVisible } = useFadeInOnScroll<HTMLDivElement>();
+
+  return (
+    <div
+      ref={ref}
+      className={`article-short-lines article-reveal ${
+        isVisible ? "is-revealed" : ""
+      }`}
+    >
+      {lines.map((line) => (
+        <p key={line} className="article-short-line">
+          {line}
+        </p>
+      ))}
+    </div>
+  );
+};
+
+const FadeCaption = ({ children }: { children: string }) => {
+  const { ref, isVisible } = useFadeInOnScroll<HTMLParagraphElement>();
+
+  return (
+    <p
+      ref={ref}
+      className={`article-image-caption article-image-caption-block article-reveal ${
+        isVisible ? "is-revealed" : ""
+      }`}
+    >
+      {children}
+    </p>
+  );
+};
+
 const ArticleBody = ({ content }: ArticleBodyProps) => {
   return (
-    <div className="article-body mx-auto w-full max-w-[760px]">
+    <div className="article-body">
       {content.map((block, index) => {
         switch (block.type) {
+          case "standfirst":
+            return (
+              <FadeParagraph key={index} className="article-standfirst">
+                {block.text}
+              </FadeParagraph>
+            );
+
           case "paragraph":
             return <FadeParagraph key={index}>{block.text}</FadeParagraph>;
 
@@ -94,7 +134,9 @@ const ArticleBody = ({ content }: ArticleBodyProps) => {
             );
 
           case "pullquote":
-            return <PullQuote key={index} text={block.text} />;
+            return (
+              <PullQuote key={index} text={block.text} lines={block.lines} />
+            );
 
           case "image":
             return (
@@ -103,8 +145,17 @@ const ArticleBody = ({ content }: ArticleBodyProps) => {
                 src={block.src}
                 alt={block.alt}
                 caption={block.caption}
+                layout={block.layout}
+                crop={block.crop}
+                monochrome={block.monochrome}
               />
             );
+
+          case "image-caption":
+            return <FadeCaption key={index}>{block.text}</FadeCaption>;
+
+          case "short-line-sequence":
+            return <FadeShortLines key={index} lines={block.lines} />;
 
           case "list":
             return <FadeList key={index} items={block.items} />;

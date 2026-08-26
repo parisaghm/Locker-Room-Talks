@@ -1,36 +1,73 @@
+import { useEffect, useRef, useState } from "react";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
 
 interface ArticleImageProps {
   src: string;
   alt: string;
   caption?: string;
+  layout?: "column" | "wide";
+  crop?: "cover" | "natural";
+  monochrome?: boolean;
 }
 
-const ArticleImage = ({ src, alt, caption }: ArticleImageProps) => {
+type ImageShape = "landscape" | "portrait" | "square";
+
+function shapeFromRatio(width: number, height: number): ImageShape {
+  const ratio = width / height;
+  if (ratio >= 1.2) return "landscape";
+  if (ratio <= 0.86) return "portrait";
+  return "square";
+}
+
+function initialShape(crop?: "cover" | "natural"): ImageShape {
+  return crop === "cover" ? "landscape" : "portrait";
+}
+
+const ArticleImage = ({
+  src,
+  alt,
+  caption,
+  layout = "column",
+  crop = "cover",
+  monochrome = true,
+}: ArticleImageProps) => {
   const { ref, isVisible } = useFadeInOnScroll<HTMLElement>();
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [shape, setShape] = useState<ImageShape>(() => initialShape(crop));
+
+  const applyShape = (image: HTMLImageElement) => {
+    if (image.naturalWidth && image.naturalHeight) {
+      setShape(shapeFromRatio(image.naturalWidth, image.naturalHeight));
+    }
+  };
+
+  useEffect(() => {
+    const image = imageRef.current;
+    if (image?.complete) applyShape(image);
+  }, [src]);
+
+  const isWideLandscape = layout === "wide" && shape === "landscape";
 
   return (
     <figure
       ref={ref}
-      className={`article-inline-image transition-all duration-700 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+      className={`article-inline-image is-${shape}${isWideLandscape ? " is-wide" : ""} article-reveal ${
+        isVisible ? "is-revealed" : ""
       }`}
     >
-      <div className="group relative p-1.5 bg-white rounded-lg shadow-md">
-        <div className="aspect-[16/10] overflow-hidden rounded-md">
-          <img
-            src={src}
-            alt={alt}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover grayscale transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-          />
-        </div>
+      <div className="article-image-frame">
+        <img
+          ref={imageRef}
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          onLoad={(event) => applyShape(event.currentTarget)}
+          className={monochrome ? "grayscale" : undefined}
+        />
       </div>
       {caption && (
-        <figcaption className="mt-4 text-center text-xs sm:text-sm text-[#9a9a9a] leading-relaxed">
-          {caption}
-        </figcaption>
+        <figcaption className="article-image-caption">{caption}</figcaption>
       )}
     </figure>
   );

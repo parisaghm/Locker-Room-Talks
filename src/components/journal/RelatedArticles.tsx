@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { JournalArticle } from "@/data/journalArticles";
+import { getArticleImageUrl, type JournalArticle } from "@/data/journalArticles";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
 
 interface RelatedArticlesProps {
@@ -24,7 +24,7 @@ const RelatedArticleCard = ({ article }: { article: JournalArticle }) => {
         <div className="relative p-1.5 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 mb-4 rounded-lg">
           <div className="aspect-[4/3] overflow-hidden rounded-md">
             <img
-              src={article.imageUrl}
+              src={getArticleImageUrl(article)}
               alt={article.imageAlt ?? article.title}
               loading="lazy"
               decoding="async"

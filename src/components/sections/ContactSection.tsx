@@ -21,7 +21,7 @@ const ContactSection = () => {
       <div className="section-container">
         <header className="text-center section-heading-block">
           <h2 className="heading-lg">
-            meet the voices<span className="dot-green"></span>
+            meet the voices<span className="dot-red"></span>
           </h2>
         </header>
 

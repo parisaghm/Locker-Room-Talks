@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {
+  getArticleImageUrl,
   getArticleSubtitle,
   type JournalArticle,
 } from "@/data/journalArticles";
@@ -19,7 +20,7 @@ const JournalCard = ({ article }: JournalCardProps) => {
         <div className="relative p-1.5 bg-white shadow-md group-hover:shadow-xl transition-shadow duration-300 mb-5 sm:mb-6">
           <div className="aspect-[4/3] overflow-hidden">
             <img
-              src={article.imageUrl}
+              src={getArticleImageUrl(article)}
               alt={article.imageAlt ?? article.title}
               loading="lazy"
               decoding="async"
