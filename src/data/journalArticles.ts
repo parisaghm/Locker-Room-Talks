@@ -1,4 +1,5 @@
 import { hopeMakaraArticle } from "@/content/journal/hope-makara";
+import { asmaraRiazArticle } from "@/content/journal/asmara-riaz";
 
 export type ArticleContentBlock =
   | { type: "paragraph"; text: string }
@@ -15,6 +16,23 @@ export type ArticleContentBlock =
       monochrome?: boolean;
     }
   | { type: "image-caption"; text: string }
+  | {
+      /**
+       * Closing editorial panel for a story: the guest's own reflection on the
+       * Locker Room Talks conversation, usually a photograph of a handwritten
+       * note plus its transcription. Reusable by any Journal article.
+       */
+      type: "after-conversation";
+      label?: string;
+      intro?: string;
+      image: {
+        src: string;
+        alt: string;
+        caption?: string;
+        monochrome?: boolean;
+      };
+      note?: { lines: string[]; signature?: string };
+    }
   | { type: "short-line-sequence"; lines: string[] }
   | { type: "list"; items: string[] }
   | {
@@ -73,6 +91,7 @@ export const journalCategories = [
 
 export const journalArticles: JournalArticle[] = [
   hopeMakaraArticle,
+  asmaraRiazArticle,
   {
     id: "home-is-a-conversation",
     slug: "home-is-a-conversation",

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
+import { shapeFromRatio, type ImageShape } from "@/lib/imageShape";
 
 interface ArticleImageProps {
   src: string;
@@ -8,15 +9,6 @@ interface ArticleImageProps {
   layout?: "column" | "wide";
   crop?: "cover" | "natural";
   monochrome?: boolean;
-}
-
-type ImageShape = "landscape" | "portrait" | "square";
-
-function shapeFromRatio(width: number, height: number): ImageShape {
-  const ratio = width / height;
-  if (ratio >= 1.2) return "landscape";
-  if (ratio <= 0.86) return "portrait";
-  return "square";
 }
 
 function initialShape(crop?: "cover" | "natural"): ImageShape {

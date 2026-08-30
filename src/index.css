@@ -604,6 +604,19 @@
     margin-inline: auto;
   }
 
+  /*
+   * Heroes are sized from the file's own proportions: a landscape frame fills
+   * the wide column, an upright one stays narrow so it does not tower over the
+   * opening paragraphs.
+   */
+  .article-hero-image.is-portrait {
+    max-width: min(30rem, 100%);
+  }
+
+  .article-hero-image.is-square {
+    max-width: min(36rem, 100%);
+  }
+
   .article-hero-image img,
   .article-inline-image img {
     display: block;
@@ -837,6 +850,85 @@
 
   .article-body > .article-image-caption-block + * {
     margin-top: var(--article-pause);
+  }
+
+  /*
+   * "After the Conversation" — the guest's own reflection, set apart as a coda
+   * at the foot of a story. Shared by any article using the block.
+   */
+  .article-after-conversation {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .article-body > * + .article-after-conversation {
+    margin-top: var(--article-pause-lg);
+    padding-top: var(--article-pause);
+  }
+
+  .article-after-conversation-rule {
+    width: 2.5rem;
+    height: 2px;
+    background-color: hsl(var(--accent-teal));
+    margin: 0 auto 1.15rem;
+  }
+
+  .article-after-conversation-label {
+    margin: 0;
+    font-family: var(--font-primary);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+  }
+
+  .article-after-conversation-intro {
+    margin: 0.6rem auto 0;
+    max-width: 34.5rem;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.0625rem, 0.3vw + 1rem, 1.1875rem);
+    line-height: 1.5;
+    color: #555555;
+    text-wrap: balance;
+  }
+
+  .article-after-conversation-figure {
+    margin: var(--article-pause) 0 0;
+  }
+
+  .article-after-conversation-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .article-after-conversation-note {
+    margin: 1.6rem auto 0;
+    max-width: 34.5rem;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1rem, 0.25vw + 0.95rem, 1.0625rem);
+    line-height: 1.6;
+    color: var(--article-ink);
+    text-wrap: pretty;
+  }
+
+  .article-after-conversation-note p {
+    margin: 0;
+  }
+
+  .article-after-conversation-note p + p {
+    margin-top: 0.5em;
+  }
+
+  .article-after-conversation-signature {
+    margin-top: 0.9em;
+    font-size: 0.9375rem;
+    color: var(--article-muted);
   }
 
   /*

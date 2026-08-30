@@ -23,8 +23,8 @@ const SHOW_CATEGORY_FILTERS: boolean = false;
  */
 const LAUNCH_ARTICLE_SLUGS = [
   "what-does-it-mean-to-belong",
+  "what-happens-to-us-when-we-leave-home",
   "home-is-a-conversation",
-  "the-weight-of-a-new-language",
 ];
 
 const Journal = () => {
@@ -80,6 +80,14 @@ const Journal = () => {
 
                 {secondaryArticles.length > 0 && (
                   <div className="mt-16 sm:mt-20 md:mt-24">
+                    {/*
+                      Labels the grid beneath the lead spread so the hierarchy
+                      stays readable as more stories are published. The grid
+                      itself is unbounded — it wraps to as many rows as needed.
+                    */}
+                    <h2 className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-accent-teal pb-4 sm:pb-5 mb-10 sm:mb-12 border-b border-border">
+                      Latest stories
+                    </h2>
                     <JournalGrid
                       articles={secondaryArticles}
                       activeCategory={activeCategory}

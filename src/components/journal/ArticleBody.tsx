@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { ArticleContentBlock } from "@/data/journalArticles";
 import PullQuote from "./PullQuote";
 import ArticleImage from "./ArticleImage";
+import AfterConversation from "./AfterConversation";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
 import {
   contentParagraphRoles,
@@ -180,6 +181,17 @@ const ArticleBody = ({ content }: ArticleBodyProps) => {
 
           case "image-caption":
             return <FadeCaption key={index}>{block.text}</FadeCaption>;
+
+          case "after-conversation":
+            return (
+              <AfterConversation
+                key={index}
+                label={block.label}
+                intro={block.intro}
+                image={block.image}
+                note={block.note}
+              />
+            );
 
           case "short-line-sequence":
             return <FadeShortLines key={index} lines={block.lines} />;
