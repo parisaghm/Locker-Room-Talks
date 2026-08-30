@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { galleryImages } from "@/data/galleryImages";
+import { Link } from "react-router-dom";
+import { homeGalleryImages } from "@/data/galleryImages";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import GalleryLightbox from "@/components/gallery/GalleryLightbox";
 import ScrollArrow from "@/components/ScrollArrow";
@@ -32,7 +33,17 @@ const GallerySection = () => {
             </p>
           </header>
 
-          <GalleryGrid images={galleryImages} onImageClick={openLightbox} />
+          <GalleryGrid images={homeGalleryImages} onImageClick={openLightbox} />
+
+          <div className="mt-12 sm:mt-16 text-center">
+            <Link
+              to="/gallery"
+              className="relative z-10 pointer-events-auto inline-flex items-center gap-2 min-h-[44px] py-2 px-1 text-sm font-semibold text-foreground hover:opacity-70 transition-opacity duration-[250ms] border-b border-foreground touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              View full gallery
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
 
           <div className="section-scroll-group">
             <ScrollArrow targetId="team" />
@@ -42,7 +53,7 @@ const GallerySection = () => {
 
       {lightboxIndex !== null && (
         <GalleryLightbox
-          images={galleryImages}
+          images={homeGalleryImages}
           currentIndex={lightboxIndex}
           onClose={closeLightbox}
           onNavigate={navigateLightbox}
