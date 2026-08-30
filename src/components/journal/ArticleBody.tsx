@@ -4,6 +4,10 @@ import type { ArticleContentBlock } from "@/data/journalArticles";
 import PullQuote from "./PullQuote";
 import ArticleImage from "./ArticleImage";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
+import {
+  contentParagraphRoles,
+  paragraphModifierClass,
+} from "@/lib/articleRhythm";
 
 interface ArticleBodyProps {
   content: ArticleContentBlock[];
@@ -101,8 +105,18 @@ const FadeCaption = ({ children }: { children: string }) => {
 };
 
 const ArticleBody = ({ content }: ArticleBodyProps) => {
+  const isLongform = content.length >= 40;
+  const roles = isLongform ? contentParagraphRoles(content) : [];
+
+  const paragraphClass = (text: string, index: number) => {
+    const modifiers = isLongform
+      ? paragraphModifierClass(text, roles[index] ?? null)
+      : "";
+    return ["article-paragraph", modifiers].filter(Boolean).join(" ");
+  };
+
   return (
-    <div className="article-body">
+    <div className={`article-body${isLongform ? " is-longform" : ""}`}>
       {content.map((block, index) => {
         switch (block.type) {
           case "standfirst":
@@ -113,11 +127,24 @@ const ArticleBody = ({ content }: ArticleBodyProps) => {
             );
 
           case "paragraph":
-            return <FadeParagraph key={index}>{block.text}</FadeParagraph>;
+            return (
+              <FadeParagraph
+                key={index}
+                className={paragraphClass(block.text, index)}
+              >
+                {block.text}
+              </FadeParagraph>
+            );
 
           case "paragraph-with-link":
             return (
-              <FadeParagraph key={index}>
+              <FadeParagraph
+                key={index}
+                className={paragraphClass(
+                  `${block.before}${block.linkText}${block.after}`,
+                  index
+                )}
+              >
                 {block.before}
                 <Link to={block.href} className="article-link">
                   {block.linkText}

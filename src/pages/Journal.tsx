@@ -3,9 +3,29 @@ import CornerNav from "@/components/CornerNav";
 import FooterSection from "@/components/sections/FooterSection";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import JournalFilters from "@/components/journal/JournalFilters";
+import JournalFeature from "@/components/journal/JournalFeature";
 import JournalGrid from "@/components/journal/JournalGrid";
-import { journalArticles } from "@/data/journalArticles";
+import { journalArticles, type JournalArticle } from "@/data/journalArticles";
 import { usePageMeta } from "@/hooks/usePageMeta";
+
+/**
+ * The category filter bar oversells the size of the archive while the Journal
+ * is this small. Flip this to true to bring it back — JournalFilters, the
+ * journalCategories list, and the per-article category data are all intact.
+ */
+const SHOW_CATEGORY_FILTERS: boolean = false;
+
+/**
+ * The stories on the Journal at launch, in display order: the first is the lead
+ * spread, the rest fill the grid beneath it. Articles left out of this list stay
+ * in journalArticles (and reachable at their own /journal/:slug) — add a slug
+ * here to publish it to the listing.
+ */
+const LAUNCH_ARTICLE_SLUGS = [
+  "what-does-it-mean-to-belong",
+  "home-is-a-conversation",
+  "the-weight-of-a-new-language",
+];
 
 const Journal = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -16,17 +36,16 @@ const Journal = () => {
       "Long-form writing on migration, belonging, identity, and life between two places.",
   });
 
-  const filteredArticles = useMemo(() => {
-    const articles =
-      activeCategory === "All"
-        ? journalArticles
-        : journalArticles.filter(
-            (article) => article.category === activeCategory
-          );
+  const [featuredArticle, ...secondaryArticles] = useMemo(() => {
+    const published = LAUNCH_ARTICLE_SLUGS.map((slug) =>
+      journalArticles.find((article) => article.slug === slug)
+    ).filter((article): article is JournalArticle => Boolean(article));
 
-    return [...articles].sort(
-      (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))
-    );
+    if (!SHOW_CATEGORY_FILTERS || activeCategory === "All") {
+      return published;
+    }
+
+    return published.filter((article) => article.category === activeCategory);
   }, [activeCategory]);
 
   return (
@@ -39,24 +58,39 @@ const Journal = () => {
               <h1 className="heading-lg mb-4 break-words">
                 journal<span className="dot-teal"></span>
               </h1>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground max-w-[700px] mx-auto text-center break-words [font-family:'DM_Serif_Display',Georgia,serif]">
+              <p className="body-text max-w-[700px] mx-auto text-center">
                 Where the podcast slows down. Long-form writing on migration,
                 belonging, and the quiet business of building a life between
                 two places.
               </p>
             </header>
 
-            <div className="mb-12 sm:mb-16">
-              <JournalFilters
-                activeCategory={activeCategory}
-                onCategoryChange={setActiveCategory}
-              />
-            </div>
+            {SHOW_CATEGORY_FILTERS && (
+              <div className="mb-12 sm:mb-16">
+                <JournalFilters
+                  activeCategory={activeCategory}
+                  onCategoryChange={setActiveCategory}
+                />
+              </div>
+            )}
 
-            <JournalGrid
-              articles={filteredArticles}
-              activeCategory={activeCategory}
-            />
+            {featuredArticle ? (
+              <>
+                <JournalFeature article={featuredArticle} />
+
+                {secondaryArticles.length > 0 && (
+                  <div className="mt-16 sm:mt-20 md:mt-24">
+                    <JournalGrid
+                      articles={secondaryArticles}
+                      activeCategory={activeCategory}
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              // Only reachable with filters restored and a category that has no stories.
+              <JournalGrid articles={[]} activeCategory={activeCategory} />
+            )}
 
             <div className="mt-20 sm:mt-24 md:mt-28">
               <NewsletterSection />

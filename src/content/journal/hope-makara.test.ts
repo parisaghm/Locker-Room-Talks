@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { hopeMakaraArticle } from "@/content/journal/hope-makara";
+import { contentParagraphRoles } from "@/lib/articleRhythm";
 import {
   featuredJournalArticle,
   getArticleBody,
@@ -51,5 +52,63 @@ describe("Hope Makara journal article", () => {
     expect(blob).toContain("What could Finland become with this person in it?");
     expect(blob).toContain("I belong here because I’m here.");
     expect(blob).toContain("From Hope, after our conversation.");
+  });
+});
+
+describe("Hope Makara block structure", () => {
+  it("keeps the publication blocks in their original order and counts", () => {
+    const types = (hopeMakaraArticle.content ?? []).map((block) => block.type);
+    const counts = types.reduce<Record<string, number>>((acc, type) => {
+      acc[type] = (acc[type] ?? 0) + 1;
+      return acc;
+    }, {});
+
+    expect(counts.paragraph).toBe(282);
+    expect(counts.pullquote).toBe(4);
+    expect(counts.image).toBe(8);
+    expect(counts["short-line-sequence"]).toBe(16);
+    expect(types[0]).toBe("paragraph");
+    expect(types.at(-1)).toBe("image");
+  });
+
+  it("records remaining text-heavy runs so they stay editorial, not accidental", () => {
+    const blocks = hopeMakaraArticle.content ?? [];
+    const roles = contentParagraphRoles(blocks);
+    const walls: Array<{ length: number; start: string }> = [];
+    let run = 0;
+    let start = "";
+
+    const flush = () => {
+      if (run >= 5) {
+        walls.push({ length: run, start });
+      }
+      run = 0;
+      start = "";
+    };
+
+    blocks.forEach((block, index) => {
+      const isDenseParagraph =
+        block.type === "paragraph" && roles[index] === "normal";
+      if (isDenseParagraph && "text" in block) {
+        if (run === 0) start = block.text.slice(0, 72);
+        run += 1;
+        return;
+      }
+      flush();
+    });
+    flush();
+
+    expect(walls).toEqual([
+      {
+        length: 5,
+        start:
+          "\"I'm not really from Texas,\" she says with a smile. \"I was born there, b",
+      },
+      {
+        length: 6,
+        start:
+          "Language is part of that layering too. Hope speaks Finnish, but she reje",
+      },
+    ]);
   });
 });

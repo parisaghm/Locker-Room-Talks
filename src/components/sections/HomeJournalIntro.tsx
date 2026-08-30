@@ -9,7 +9,7 @@ const HomeJournalIntro = () => {
           <h2 className="heading-lg mb-4 break-words">
             journal<span className="dot-teal"></span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground max-w-[700px] mx-auto text-center break-words [font-family:'DM_Serif_Display',Georgia,serif]">
+          <p className="body-text max-w-[700px] mx-auto text-center">
             Where the podcast slows down. Long-form writing on migration, belonging, and the quiet business of building a life between two places.
           </p>
         </header>

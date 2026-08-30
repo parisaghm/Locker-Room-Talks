@@ -126,6 +126,12 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
         </p>
       )}
 
+      {article.standfirst && (
+        <p className="text-[0.875rem] sm:text-[0.9375rem] leading-[1.6] text-[#555555] max-w-[30rem] mb-6 sm:mb-7 break-words text-pretty italic [font-family:'DM_Serif_Display',Georgia,serif]">
+          {article.standfirst}
+        </p>
+      )}
+
       <FeaturedArticleMeta article={article} />
 
       <JournalNavLink

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import {
   getArticleImageUrl,
+  getArticleReadingTime,
   getArticleSubtitle,
   type JournalArticle,
 } from "@/data/journalArticles";
@@ -10,6 +11,8 @@ interface JournalCardProps {
 }
 
 const JournalCard = ({ article }: JournalCardProps) => {
+  const readingTime = getArticleReadingTime(article);
+
   return (
     <article className="min-w-0">
       <Link
@@ -49,10 +52,15 @@ const JournalCard = ({ article }: JournalCardProps) => {
           </p>
         )}
 
-        {article.author && (
-          <p className="text-xs sm:text-sm font-semibold text-[#1a1a1a]">
-            {article.author}
-          </p>
+        {(article.author || readingTime) && (
+          <div className="text-xs sm:text-sm leading-relaxed">
+            {article.author && (
+              <p className="font-semibold text-[#1a1a1a]">{article.author}</p>
+            )}
+            {readingTime && (
+              <p className="text-[#9a9a9a] mt-0.5">{readingTime}</p>
+            )}
+          </div>
         )}
       </Link>
     </article>

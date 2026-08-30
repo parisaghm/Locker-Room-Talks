@@ -839,6 +839,65 @@
     margin-top: var(--article-pause);
   }
 
+  /*
+   * Long-form rhythm (Hope Makara and similarly long Journal pieces).
+   * Short articles keep the default spacing so they are not over-aired.
+   */
+  .article-body.is-longform {
+    --article-pause: 2.85rem;
+    --article-pause-lg: 3.25rem;
+  }
+
+  .article-body.is-longform > .article-standfirst + * {
+    margin-top: 1.9em;
+  }
+
+  .article-body.is-longform > * + .article-short-lines,
+  .article-body.is-longform > .article-short-lines + * {
+    margin-top: 2.15em;
+  }
+
+  .article-body.is-longform > .article-short-lines + .article-inline-image,
+  .article-body.is-longform > .article-inline-image + .article-short-lines {
+    margin-top: var(--article-pause);
+  }
+
+  .article-body.is-longform > .article-paragraph + .article-paragraph.is-beat {
+    margin-top: 1.7em;
+  }
+
+  .article-body.is-longform
+    > .article-paragraph.is-beat
+    + .article-paragraph.is-beat {
+    margin-top: 0.5em;
+  }
+
+  .article-body.is-longform
+    > .article-paragraph.is-beat
+    + .article-paragraph:not(.is-beat):not(.is-lead-in):not(.is-continuation) {
+    margin-top: 1.7em;
+  }
+
+  .article-body.is-longform > * + .article-paragraph.is-lead-in {
+    margin-top: 1.45em;
+  }
+
+  .article-body.is-longform > .article-paragraph.is-lead-in + .article-paragraph {
+    margin-top: 0.42em;
+  }
+
+  .article-body.is-longform
+    > .article-paragraph
+    + .article-paragraph.is-continuation {
+    margin-top: 0.4em;
+  }
+
+  .article-body.is-longform
+    > .article-paragraph.is-long
+    + .article-paragraph.is-long {
+    margin-top: 1.4em;
+  }
+
   @media (min-width: 860px) {
     .article-inline-image.is-landscape.is-wide {
       width: min(var(--article-wide), calc(100vw - 2.75rem));
@@ -917,6 +976,28 @@
 
     .article-image-frame {
       padding: 0.22rem;
+    }
+
+    .article-body.is-longform {
+      --article-pause: 2.15rem;
+      --article-pause-lg: 2.55rem;
+    }
+
+    .article-body.is-longform > .article-paragraph + .article-paragraph.is-beat,
+    .article-body.is-longform
+      > .article-paragraph.is-beat
+      + .article-paragraph:not(.is-beat):not(.is-lead-in):not(.is-continuation) {
+      margin-top: 1.45em;
+    }
+
+    .article-body.is-longform > * + .article-short-lines,
+    .article-body.is-longform > .article-short-lines + * {
+      margin-top: 1.85em;
+    }
+
+    .article-body.is-longform > .article-short-lines + .article-inline-image,
+    .article-body.is-longform > .article-inline-image + .article-short-lines {
+      margin-top: var(--article-pause);
     }
   }
 
