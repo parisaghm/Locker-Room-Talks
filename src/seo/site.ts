@@ -22,18 +22,27 @@ export const SITE_LOCALE = "en";
 export const CONTACT_EMAIL = "lockerroomtalkmedia@gmail.com";
 
 /**
- * Real, verified profile for the project. Used in Organization.sameAs to tell
+ * Real, verified profiles for the project. Used in Organization.sameAs to tell
  * Google which "Locker Room Talk(s)" entity this site belongs to — the name is
- * contested by several unrelated shows.
+ * contested by several unrelated shows, so these are the strongest signal that
+ * this site owns it.
  *
- * TODO: when an official YouTube *channel* URL exists, add it here. The YouTube
- * link in src/data/guests.ts is a single episode watch URL, not a profile, so
- * it does not belong in sameAs.
+ * Only add a URL here after confirming it is an official profile OF the
+ * project. Individual episode watch URLs do not belong in sameAs: asserting
+ * that a video is the organisation is wrong, and bad nodes get the whole graph
+ * ignored. Those live as ordinary links in src/data/guests.ts instead.
  */
 export const APPLE_PODCASTS_URL =
   "https://podcasts.apple.com/us/podcast/locker-room-talks/id1896566745";
 
-export const SAME_AS: readonly string[] = [APPLE_PODCASTS_URL];
+/** Verified via the YouTube oEmbed author_url for the project's own uploads. */
+export const YOUTUBE_CHANNEL_URL =
+  "https://www.youtube.com/@LockerRoomTalksOfficial";
+
+export const SAME_AS: readonly string[] = [
+  YOUTUBE_CHANNEL_URL,
+  APPLE_PODCASTS_URL,
+];
 
 /** Square brand icon, used for Organization.logo. */
 export const LOGO_PATH = "/favicon-512x512.png";

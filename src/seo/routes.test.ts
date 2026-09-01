@@ -271,6 +271,7 @@ describe("structured data", () => {
   it("claims only real, verified profiles in sameAs", () => {
     const org = byPath("/").jsonLd[0] as { sameAs: string[] };
     expect(org.sameAs).toEqual([
+      "https://www.youtube.com/@LockerRoomTalksOfficial",
       "https://podcasts.apple.com/us/podcast/locker-room-talks/id1896566745",
     ]);
   });

@@ -1,4 +1,4 @@
-import { APPLE_PODCASTS_URL } from "@/seo/site";
+import { APPLE_PODCASTS_URL, YOUTUBE_CHANNEL_URL } from "@/seo/site";
 import type { SVGProps } from "react";
 import { Youtube, Radio } from "lucide-react";
 
@@ -49,9 +49,11 @@ const FooterSection = () => {
 
         <div className="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 section-body-stack flex-wrap">
           <a
-            href="#"
+            href={YOUTUBE_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-gray-300 hover:text-white transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-            aria-label="YouTube"
+            aria-label="Locker Room Talks on YouTube"
           >
             <Youtube className="w-6 h-6 md:w-7 md:h-7 shrink-0" strokeWidth={1.5} />
           </a>
@@ -69,11 +71,12 @@ const FooterSection = () => {
           >
             <LinkedInIcon className="w-6 h-6 md:w-7 md:h-7 shrink-0" />
           </a>
-          {/* The only official profile we have a real URL for. It is also the
-              sole entry in Organization.sameAs (src/seo/site.ts) — a crawlable
-              link plus sameAs is what tells Google this site owns the name,
-              which matters because several unrelated shows use it too. Add the
-              YouTube/Instagram/LinkedIn URLs above as they become available. */}
+          {/* YouTube and Apple Podcasts are the two official profiles we have
+              verified URLs for, and they are also the Organization.sameAs
+              entries (src/seo/site.ts). A crawlable link plus sameAs is what
+              tells Google this site owns the name, which matters because
+              several unrelated shows use it too. Wire up Instagram and
+              LinkedIn above the same way once those URLs are known. */}
           <a
             href={APPLE_PODCASTS_URL}
             target="_blank"
