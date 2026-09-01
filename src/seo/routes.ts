@@ -21,7 +21,9 @@ import type { JournalArticle } from "@/data/journalArticles";
 import {
   getArticleDescription,
   getArticleImageUrl,
+  isArticlePublished,
   journalArticles,
+  publishedJournalArticles,
 } from "@/data/journalArticles";
 import {
   DEFAULT_OG_IMAGE_PATH,
@@ -44,17 +46,15 @@ import {
 import type { RouteSeo } from "./types";
 
 /**
- * An article counts as published when it carries an ISO `publishedAt`. The
- * placeholder entries in journalArticles.ts have only a human `date` string, so
- * this gate excludes them structurally -- no hard-coded slug list to maintain.
- * Adding a real article with a publishedAt makes it indexable automatically.
+ * Re-exported so the build script and this module share one definition of
+ * "published" with the reader-facing navigation in journalArticles.ts. The gate
+ * is an ISO `publishedAt`: placeholder entries carry only a human `date`, so
+ * they are excluded structurally rather than by a hard-coded slug list.
  */
-export function isPublished(article: JournalArticle): boolean {
-  return typeof article.publishedAt === "string" && article.publishedAt !== "";
-}
+export const isPublished = isArticlePublished;
 
 export const publishedArticles = (): JournalArticle[] =>
-  journalArticles.filter(isPublished);
+  publishedJournalArticles;
 
 /** Newest publishedAt across real articles; used as sitemap lastmod. */
 function latestPublishedAt(): string {

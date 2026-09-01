@@ -43,7 +43,7 @@ export const guests: Guest[] = [
       "Asmara is a dedicated professional focused on supporting internationals and facilitating integration, helping people navigate complex systems and access meaningful opportunities. She is curious, adaptable, and genuinely enjoys connecting with individuals from diverse backgrounds, creating spaces where people feel seen, supported, and empowered. Personally, she loves watching movies, traveling, and exploring questions of identity and belonging—sometimes a little lost, always learning. She first came to Finland to study and has been living here for 13 years.",
     imageUrl: asmaraRiazPhoto,
     tags: ["integration", "belonging"],
-    youtubeUrl: "#",
+    youtubeUrl: "https://www.youtube.com/watch?v=YCEKY3xnmB8",
     appleUrl: "#",
     imagePosition: "center",
   },
