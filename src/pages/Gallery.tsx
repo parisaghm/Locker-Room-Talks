@@ -4,15 +4,9 @@ import FooterSection from "@/components/sections/FooterSection";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import GalleryLightbox from "@/components/gallery/GalleryLightbox";
 import { allGalleryImages } from "@/data/galleryImages";
-import { usePageMeta } from "@/hooks/usePageMeta";
 
 const Gallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
-  usePageMeta({
-    title: "Gallery — Locker Room Talks",
-    description: "Behind the scenes — moments from our conversations.",
-  });
 
   const openLightbox = useCallback((index: number) => {
     setLightboxIndex(index);

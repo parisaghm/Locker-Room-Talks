@@ -16,19 +16,10 @@ import {
   getArticleDescription,
   getArticleImageUrl,
 } from "@/data/journalArticles";
-import { usePageMeta } from "@/hooks/usePageMeta";
 
 const JournalArticle = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticleBySlug(slug) : undefined;
-
-  usePageMeta({
-    title: article
-      ? `${article.title} — Locker Room Talks`
-      : "Article not found — Locker Room Talks",
-    description: article ? getArticleDescription(article) : undefined,
-    ogImage: article ? getArticleImageUrl(article) : undefined,
-  });
 
   if (!article) {
     return <NotFound />;

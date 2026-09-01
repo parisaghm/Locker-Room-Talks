@@ -1,3 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <circle cx="32" cy="32" r="10" fill="#8B0000"></circle>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Locker Room Talks">
+  <title>Locker Room Talks</title>
+  <rect width="512" height="512" fill="#F6F5F2"/>
+  <g transform="translate(56.3 141.2) scale(4.4378)" fill="none">
+    <path d="M45.1818 7.99902C45.1818 21 42.6435 44.3949 8.12256 43.9949" stroke="#D45A5A" stroke-width="13.5" stroke-linecap="round"/>
+    <ellipse cx="13.1992" cy="12.9985" rx="13.1992" ry="12.9985" fill="#D45A5A"/>
+    <path d="M45.3735 8.02441C45.3735 21 47.3565 45.395 81.8774 44.995" stroke="#A10203" stroke-width="13.5" stroke-linecap="round"/>
+    <ellipse cx="76.8008" cy="13.998" rx="13.1992" ry="12.9985" fill="#A10203"/>
+  </g>
 </svg>

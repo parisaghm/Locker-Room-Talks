@@ -46,7 +46,7 @@ const NewsletterSection = () => {
                 name="email"
                 required
                 autoComplete="email"
-                placeholder="your@email.com"
+                placeholder="your email address"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 className="w-full bg-transparent border-0 border-b border-foreground/30 pb-2 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground focus-visible:border-foreground rounded-none min-h-[44px]"

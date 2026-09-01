@@ -20,12 +20,6 @@ const ArrowIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const JournalCategory = ({ children }: { children: string }) => (
-  <span className="block text-xs font-bold tracking-[0.12em] uppercase text-[#8E0F13] shrink-0 mb-4">
-    {children}
-  </span>
-);
-
 type JournalNavLinkProps = PropsWithChildren<{
   to: string;
   className: string;
@@ -108,8 +102,6 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
     </JournalNavLink>
 
     <div className="flex flex-col min-w-0 text-left justify-center w-full max-w-full md:max-w-[500px]">
-      <JournalCategory>{article.category}</JournalCategory>
-
       <JournalNavLink
         to={`/journal/${article.slug}`}
         className="group/title block w-full min-w-0 touch-manipulation"
@@ -154,10 +146,6 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
 const LatestJournalSection = () => {
   return (
     <div className="w-full min-w-0 section-body-stack text-left">
-      <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-accent-teal mb-6 sm:mb-8">
-        Latest from the Journal
-      </p>
-
       <FeaturedArticle article={featuredJournalArticle} />
 
       <div className="section-follow-block text-center">

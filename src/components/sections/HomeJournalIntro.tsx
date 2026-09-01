@@ -1,4 +1,5 @@
 import ScrollArrow from "../ScrollArrow";
+import JournalIntroCopy from "../journal/JournalIntroCopy";
 import LatestJournalSection from "./LatestJournalSection";
 
 const HomeJournalIntro = () => {
@@ -9,9 +10,7 @@ const HomeJournalIntro = () => {
           <h2 className="heading-lg mb-4 break-words">
             journal<span className="dot-teal"></span>
           </h2>
-          <p className="body-text max-w-[700px] mx-auto text-center">
-            Where the podcast slows down. Long-form writing on migration, belonging, and the quiet business of building a life between two places.
-          </p>
+          <JournalIntroCopy />
         </header>
 
         <LatestJournalSection />

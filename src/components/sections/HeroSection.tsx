@@ -3,7 +3,7 @@ import ScrollArrow from "../ScrollArrow";
 
 const HeroSection = () => {
   const [videoFailed, setVideoFailed] = useState(false);
-  const textRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
   const [textDimensions, setTextDimensions] = useState({ width: 0, height: 0 });
 
   const handleVideoError = useCallback(() => {
@@ -91,11 +91,27 @@ const HeroSection = () => {
 
         {/* Title block with video mask */}
         <div className="relative mb-6 px-4">
-          {/* Hidden text to measure dimensions */}
-          <h1
+          {/*
+            The real page heading. The title people see is a <video> clipped by
+            an SVG text mask, and mask text is not in the DOM, so the accessible
+            and crawlable heading has to live here. `sr-only` is position:absolute
+            with a 1px clip, so it adds no layout and changes nothing visually.
+            Keep the text identical to what the mask renders below.
+          */}
+          <h1 className="sr-only">Locker Room Talks</h1>
+
+          {/*
+            Measuring ruler only — sized by getBoundingClientRect() above to
+            drive the video mask. It needs REAL layout dimensions, so it cannot
+            use sr-only; leave visibility:hidden and position:absolute as they
+            are. aria-hidden keeps it from being announced twice.
+          */}
+          <span
             ref={textRef}
+            aria-hidden="true"
             className="hero-title font-bold tracking-tight leading-none text-center"
             style={{
+              display: "block",
               letterSpacing: "-0.02em",
               margin: 0,
               whiteSpace: "nowrap",
@@ -105,7 +121,7 @@ const HeroSection = () => {
             }}
           >
             Locker Room Talks
-          </h1>
+          </span>
 
           {/* Video masked to text shape */}
           <div
@@ -155,9 +171,13 @@ const HeroSection = () => {
                 />
               </div>
             ) : (
-              <h1
+              /* Visual fallback when the video cannot play. The real <h1> is
+                 the sr-only one above, so this is decorative. */
+              <span
+                aria-hidden="true"
                 className="hero-title font-bold tracking-tight leading-none text-center"
                 style={{
+                  display: "block",
                   letterSpacing: "-0.02em",
                   margin: 0,
                   whiteSpace: "nowrap",
@@ -172,7 +192,7 @@ const HeroSection = () => {
                 }}
               >
                 Locker Room Talks
-              </h1>
+              </span>
             )}
           </div>
         </div>

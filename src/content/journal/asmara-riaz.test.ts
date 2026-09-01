@@ -30,7 +30,7 @@ describe("Asmara Riaz journal article", () => {
   it("exposes preview metadata without requiring a second copy of the story", () => {
     expect(asmaraRiazArticle.title).toBe("What Happens to Us When We Leave Home?");
     expect(asmaraRiazArticle.subtitle).toBe(
-      "Asmara Riaz on Lahore, Finland and the Long, Unfinished Journey of Belonging"
+      "Asmara Riaz on Lahore, Finland and the long, unfinished journey of belonging"
     );
     expect(asmaraRiazArticle.category).toBe("Migration");
     expect(asmaraRiazArticle.author).toBe("Farnaz Farahdel");

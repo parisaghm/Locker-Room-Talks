@@ -22,7 +22,7 @@ const SubscribeSection = () => {
           </h2>
 
           <p className="body-text mb-4">
-            Currently in production. Releasing early 2026.
+            Currently in production.
           </p>
 
           <p className="body-text mb-10">

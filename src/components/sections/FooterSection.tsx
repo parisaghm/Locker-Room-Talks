@@ -1,3 +1,4 @@
+import { APPLE_PODCASTS_URL } from "@/seo/site";
 import type { SVGProps } from "react";
 import { Youtube, Radio } from "lucide-react";
 
@@ -68,10 +69,17 @@ const FooterSection = () => {
           >
             <LinkedInIcon className="w-6 h-6 md:w-7 md:h-7 shrink-0" />
           </a>
+          {/* The only official profile we have a real URL for. It is also the
+              sole entry in Organization.sameAs (src/seo/site.ts) — a crawlable
+              link plus sameAs is what tells Google this site owns the name,
+              which matters because several unrelated shows use it too. Add the
+              YouTube/Instagram/LinkedIn URLs above as they become available. */}
           <a
-            href="#"
+            href={APPLE_PODCASTS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-gray-300 hover:text-white transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-            aria-label="Podcast"
+            aria-label="Listen to Locker Room Talks on Apple Podcasts"
           >
             <Radio className="w-6 h-6 md:w-7 md:h-7 shrink-0" strokeWidth={1.5} />
           </a>
