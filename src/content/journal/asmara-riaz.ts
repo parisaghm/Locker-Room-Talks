@@ -11,7 +11,7 @@ export const asmaraRiazArticle: JournalArticle = {
   id: "what-happens-to-us-when-we-leave-home",
   slug: "what-happens-to-us-when-we-leave-home",
   title: "What Happens to Us When We Leave Home?",
-  subtitle: "Asmara Riaz on Lahore, Finland and the Long, Unfinished Journey of Belonging",
+  subtitle: "Asmara Riaz on Lahore, Finland and the long, unfinished journey of belonging",
   category: "Migration",
   author: "Farnaz Farahdel",
   standfirst: "Asmara Riaz left the noise, warmth and familiar streets of Lahore for a country she barely knew, expecting an education, an adventure and eventually a return home. Thirteen years later, Finland has become part of who she is. But the longer she has stayed, the more complicated one question has become: where, exactly, does she belong?",

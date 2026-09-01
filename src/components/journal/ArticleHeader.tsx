@@ -10,12 +10,6 @@ interface ArticleHeaderProps {
   article: JournalArticle;
 }
 
-const ArticleCategory = ({ children }: { children: string }) => (
-  <span className="block text-xs font-bold tracking-[0.12em] uppercase text-[#8E0F13] mb-5 sm:mb-6">
-    {children}
-  </span>
-);
-
 const ArticleHeader = ({ article }: ArticleHeaderProps) => {
   const { ref, isVisible } = useFadeInOnScroll<HTMLElement>();
 
@@ -35,8 +29,6 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
       </Link>
 
       <div className="article-header-inner">
-        <ArticleCategory>{article.category}</ArticleCategory>
-
         <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3rem] font-bold tracking-[-0.02em] leading-[1.08] text-[#1a1a1a] text-balance mb-5 sm:mb-7">
           {article.title}
         </h1>

@@ -33,10 +33,6 @@ const RelatedArticleCard = ({ article }: { article: JournalArticle }) => {
           </div>
         </div>
 
-        <span className="block text-xs font-bold tracking-[0.12em] uppercase text-[#8E0F13] mb-3">
-          {article.category}
-        </span>
-
         <h3 className="text-lg sm:text-xl font-bold leading-[1.2] text-[#1a1a1a] break-words [font-family:'DM_Serif_Display',Georgia,serif] group-hover:opacity-70 transition-opacity duration-200">
           {article.title}
         </h3>

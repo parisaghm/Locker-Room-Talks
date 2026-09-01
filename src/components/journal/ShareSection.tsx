@@ -1,3 +1,4 @@
+import { SITE_ORIGIN } from "@/seo/site";
 import { useState } from "react";
 import { Link2 } from "lucide-react";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
@@ -29,10 +30,9 @@ const ShareSection = ({ title, slug }: ShareSectionProps) => {
   const { ref, isVisible } = useFadeInOnScroll<HTMLElement>();
   const [copied, setCopied] = useState(false);
 
-  const shareUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/journal/${slug}`
-      : `/journal/${slug}`;
+  // Always share the canonical URL. Using window.location.origin would spread
+  // whichever host the visitor happened to land on (e.g. the apex domain).
+  const shareUrl = `${SITE_ORIGIN}/journal/${slug}`;
 
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title);

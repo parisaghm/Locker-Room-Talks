@@ -300,6 +300,31 @@
     margin: 0 auto;
   }
 
+  /*
+   * Journal LISTING page (/journal) only — deliberately not .page-section:
+   * the archive is a document that starts at the top and grows as stories are
+   * published, so it takes block flow and intrinsic height instead of the
+   * centred 100vh treatment the homepage sections use. Article reading pages
+   * and every other section keep .section-container's narrower measure.
+   */
+  .journal-listing-section {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    position: relative;
+    overflow-x: hidden;
+    padding: clamp(1.75rem, 3.5vw, 3rem) var(--section-pad-x)
+      clamp(3rem, 6vw, 5rem);
+  }
+
+  .journal-listing-container {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+  }
+
   @media (max-width: 768px) {
     .page-section {
       padding: var(--section-pad-y-sm) var(--section-pad-x);
@@ -717,7 +742,7 @@
   }
 
   .article-body > .article-h2 + * {
-    margin-top: 0.75em;
+    margin-top: 1rem;
   }
 
   .article-body > * + .article-h3 {
