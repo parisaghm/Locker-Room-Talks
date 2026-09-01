@@ -431,6 +431,24 @@ export const journalArticles: JournalArticle[] = [
 export const featuredJournalArticle =
   journalArticles.find((article) => article.featured) ?? journalArticles[0];
 
+/**
+ * A story counts as published once it carries an ISO `publishedAt`. The
+ * placeholder entries below it have only a human-readable `date`, so this one
+ * gate separates real journalism from scaffolding — no slug list to maintain.
+ * Adding `publishedAt` to an article publishes it everywhere at once.
+ */
+export function isArticlePublished(article: JournalArticle): boolean {
+  return typeof article.publishedAt === "string" && article.publishedAt !== "";
+}
+
+/**
+ * The real stories. Reader-facing navigation (related stories, previous/next)
+ * is built from this rather than `journalArticles`, so placeholder copy is
+ * never linked to from a published article.
+ */
+export const publishedJournalArticles: JournalArticle[] =
+  journalArticles.filter(isArticlePublished);
+
 export function getArticleBody(article: JournalArticle): ArticleContentBlock[] {
   const opening: ArticleContentBlock[] = article.standfirst
     ? [{ type: "standfirst", text: article.standfirst }]
@@ -447,30 +465,36 @@ export function getArticleIndex(slug: string): number {
   return journalArticles.findIndex((article) => article.slug === slug);
 }
 
+/** Previous/next within the published stories only. */
 export function getAdjacentArticles(slug: string): {
   previous?: JournalArticle;
   next?: JournalArticle;
 } {
-  const index = getArticleIndex(slug);
+  const index = publishedJournalArticles.findIndex(
+    (article) => article.slug === slug
+  );
   if (index === -1) return {};
 
   return {
-    previous: index > 0 ? journalArticles[index - 1] : undefined,
+    previous: index > 0 ? publishedJournalArticles[index - 1] : undefined,
     next:
-      index < journalArticles.length - 1
-        ? journalArticles[index + 1]
+      index < publishedJournalArticles.length - 1
+        ? publishedJournalArticles[index + 1]
         : undefined,
   };
 }
 
+/** Related stories, drawn from published articles only. */
 export function getRelatedArticles(
   slug: string,
   count = 3
 ): JournalArticle[] {
   const current = getArticleBySlug(slug);
-  if (!current) return journalArticles.slice(0, count);
+  if (!current) return publishedJournalArticles.slice(0, count);
 
-  const others = journalArticles.filter((article) => article.slug !== slug);
+  const others = publishedJournalArticles.filter(
+    (article) => article.slug !== slug
+  );
 
   const sameCategory = others.filter(
     (article) => article.category === current.category

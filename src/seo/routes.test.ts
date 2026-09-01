@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { journalArticles } from "@/data/journalArticles";
-import { buildRouteSeo, getRouteSeo, isPublished, notFoundRoute } from "./routes";
+import {
+  getAdjacentArticles,
+  getRelatedArticles,
+  journalArticles,
+  publishedJournalArticles,
+} from "@/data/journalArticles";
+import {
+  buildRouteSeo,
+  getRouteSeo,
+  isPublished,
+  notFoundRoute,
+  publishedArticles,
+} from "./routes";
 import { headTagsFor, renderHeadTags, serializeJsonLd } from "./head";
 import { MAX_DESCRIPTION, SITE_ORIGIN, truncateDescription } from "./site";
 import type { RouteSeo } from "./types";
@@ -95,6 +106,41 @@ describe("indexing policy", () => {
   it("never indexes the 404 page", () => {
     expect(notFoundRoute().robots).toBe("noindex");
     expect(notFoundRoute().sitemap).toBe(false);
+  });
+});
+
+describe("internal link graph", () => {
+  /**
+   * Published stories must never link out to placeholder copy: it wastes crawl
+   * budget and points readers at filler text.
+   */
+  it("never surfaces a placeholder as a related story", () => {
+    for (const slug of PUBLISHED_SLUGS) {
+      const related = getRelatedArticles(slug).map((a) => a.slug);
+      expect(related, slug).not.toContain(slug);
+      for (const placeholder of PLACEHOLDER_SLUGS) {
+        expect(related, `${slug} -> ${placeholder}`).not.toContain(placeholder);
+      }
+    }
+  });
+
+  it("never surfaces a placeholder as previous/next", () => {
+    for (const slug of PUBLISHED_SLUGS) {
+      const { previous, next } = getAdjacentArticles(slug);
+      for (const neighbour of [previous, next]) {
+        if (!neighbour) continue;
+        expect(PLACEHOLDER_SLUGS, `${slug} -> ${neighbour.slug}`).not.toContain(
+          neighbour.slug
+        );
+      }
+    }
+  });
+
+  it("keeps one shared definition of published", () => {
+    expect(publishedJournalArticles.map((a) => a.slug).sort()).toEqual(
+      [...PUBLISHED_SLUGS].sort()
+    );
+    expect(publishedArticles()).toBe(publishedJournalArticles);
   });
 });
 
