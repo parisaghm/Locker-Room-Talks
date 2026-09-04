@@ -44,7 +44,10 @@ export const guests: Guest[] = [
     imageUrl: asmaraRiazPhoto,
     tags: ["integration", "belonging"],
     youtubeUrl: "https://www.youtube.com/watch?v=YCEKY3xnmB8",
-    appleUrl: "#",
+    // Episode-level link: the ?i= parameter selects this episode within the
+    // show, so it must be kept.
+    appleUrl:
+      "https://podcasts.apple.com/us/podcast/what-happens-to-us-when-we-leave-our-homeland/id1896566745?i=1000787833070",
     imagePosition: "center",
   },
   {
