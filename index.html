@@ -3,6 +3,14 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- Google Search Console site ownership. Deliberately outside the
+		     seo:start/seo:end markers and without data-seo: scripts/seo-build.mjs
+		     rewrites only the marker region per route, and applyToDocument.ts
+		     removes only [data-seo] nodes on client-side navigation, so this tag
+		     survives both and is present in the served HTML for every route. -->
+		<meta name="google-site-verification" content="gfENezI1a7XvU8D4xwpGr14f0xkCTLZ7qWzX3jPXTKA" />
+
 		<!-- seo:start -->
 		<!-- Everything between these markers is replaced per route by
 		     scripts/seo-build.mjs. The values below are the homepage defaults and
