@@ -13,9 +13,9 @@ interface JournalFeatureProps {
 /**
  * The lead story on the Journal listing: a magazine feature spread rather than
  * a card. From lg up, the image takes 7 of 12 columns (~57%) and the story
- * information 5 (~40%), vertically centred against the photograph. Below lg it
- * stacks — at tablet width a two-column split leaves the image too small to
- * carry the page.
+ * information 5 (~40%), top-aligned so the image frame and the category
+ * eyebrow share a top edge. Below lg it stacks — at tablet width a two-column
+ * split leaves the image too small to carry the page.
  *
  * The image keeps its native aspect ratio — no fixed crop box — so photography
  * is never stretched or cut to fit the layout.
@@ -32,7 +32,7 @@ const JournalFeature = ({ article }: JournalFeatureProps) => {
     (article.excerpt !== subtitle ? article.excerpt : undefined);
 
   return (
-    <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:items-center w-full min-w-0">
+    <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:items-start w-full min-w-0">
       <Link
         to={`/journal/${article.slug}`}
         className="group block min-w-0 lg:col-span-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4 focus-visible:ring-offset-background"
