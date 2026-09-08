@@ -85,10 +85,10 @@ const Journal = () => {
 
             {featuredArticle ? (
               <>
-                {/* Intro → feature: 48px / 56px / 64px. */}
+                {/* Intro → feature: 48px, opening to 72px from lg. */}
                 <section
                   aria-label="Featured story"
-                  className="mt-12 sm:mt-14 lg:mt-16"
+                  className="mt-12 lg:mt-[4.5rem]"
                 >
                   <JournalSectionLabel>Featured story</JournalSectionLabel>
                   <JournalFeature article={featuredArticle} />

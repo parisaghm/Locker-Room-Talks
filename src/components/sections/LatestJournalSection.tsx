@@ -82,7 +82,13 @@ const FeaturedArticleMeta = ({ article }: { article: JournalArticle }) => {
 };
 
 const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
-  <article className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 md:items-center w-full min-w-0">
+  /*
+    Top-aligned, not centred: the text column is taller than the 16/10 image,
+    so centring dropped the image below the title. With `items-start` the image
+    frame and the title are both the first thing in their column, so they share
+    a top edge without either side needing a compensating offset.
+  */
+  <article className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 md:items-start w-full min-w-0">
     <JournalNavLink
       to={`/journal/${article.slug}`}
       className="group block min-w-0"
@@ -101,7 +107,7 @@ const FeaturedArticle = ({ article }: { article: JournalArticle }) => (
       </div>
     </JournalNavLink>
 
-    <div className="flex flex-col min-w-0 text-left justify-center w-full max-w-full md:max-w-[500px]">
+    <div className="flex flex-col min-w-0 text-left w-full max-w-full md:max-w-[500px]">
       <JournalNavLink
         to={`/journal/${article.slug}`}
         className="group/title block w-full min-w-0 touch-manipulation"
