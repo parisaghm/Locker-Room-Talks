@@ -1,10 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Locker Room Talks">
   <title>Locker Room Talks</title>
   <rect width="512" height="512" fill="#F6F5F2"/>
-  <g transform="translate(56.3 141.2) scale(4.4378)" fill="none">
-    <path d="M45.1818 7.99902C45.1818 21 42.6435 44.3949 8.12256 43.9949" stroke="#D45A5A" stroke-width="13.5" stroke-linecap="round"/>
-    <ellipse cx="13.1992" cy="12.9985" rx="13.1992" ry="12.9985" fill="#D45A5A"/>
-    <path d="M45.3735 8.02441C45.3735 21 47.3565 45.395 81.8774 44.995" stroke="#A10203" stroke-width="13.5" stroke-linecap="round"/>
-    <ellipse cx="76.8008" cy="13.998" rx="13.1992" ry="12.9985" fill="#A10203"/>
+  <g transform="translate(32 73) scale(1.4834)">
+    <g fill="#343739">
+      <circle cx="68.5" cy="35.5" r="35.5"/>
+      <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z"/>
+    </g>
+    <g fill="#53C29E" transform="translate(302 0) scale(-1 1)">
+      <circle cx="68.5" cy="35.5" r="35.5"/>
+      <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z"/>
+    </g>
   </g>
 </svg>
