@@ -181,7 +181,23 @@ export function articleNode(
       ...(image.width ? { width: image.width } : {}),
       ...(image.height ? { height: image.height } : {}),
       ...(article.imageAlt ? { caption: article.imageAlt } : {}),
-      ...(article.photographer ? { creditText: article.photographer } : {}),
+      // Photography credit. `creator` is the rights field Google's image
+      // metadata report reads; `creditText` is the display string. Both derive
+      // from the one `photographer` field, so they cannot disagree.
+      //
+      // copyrightNotice, license and acquireLicensePage are deliberately
+      // absent, which is why Search Console still warns about them. We have no
+      // record of who holds copyright in these photographs -- a photographer
+      // credit is not an assignment of rights, and the footer's site-wide
+      // "(c) Locker Room Talks" says nothing about a specific commissioned
+      // image -- and there is no page where anyone could license one. Adding
+      // them would be a false claim about someone else's work.
+      ...(article.photographer
+        ? {
+            creator: { "@type": "Person", name: article.photographer },
+            creditText: article.photographer,
+          }
+        : {}),
     },
   };
 }
