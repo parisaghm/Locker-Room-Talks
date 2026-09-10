@@ -23,6 +23,15 @@ const byPath = (path: string): RouteSeo => {
   return route;
 };
 
+/**
+ * The Article.image ImageObject for a published article. This is the node
+ * Google's "Image metadata" report reads -- the only other ImageObject on an
+ * article page is the Organization logo.
+ */
+const articleImage = (slug: string): Record<string, unknown> =>
+  (byPath(`/journal/${slug}`).jsonLd[0] as { image: Record<string, unknown> })
+    .image;
+
 const PLACEHOLDER_SLUGS = [
   "home-is-a-conversation",
   "the-weight-of-a-new-language",
@@ -292,6 +301,58 @@ describe("structured data", () => {
       expect(article.mainEntityOfPage, slug).toContain(SITE_ORIGIN);
       expect(article.wordCount as number, slug).toBeGreaterThan(500);
     }
+  });
+
+  it("credits the photographer as the image creator", () => {
+    const image = articleImage("what-does-it-mean-to-belong");
+    expect(image.creator).toEqual({ "@type": "Person", name: "Linda Wang" });
+    expect(image.creditText).toBe("Linda Wang");
+  });
+
+  /**
+   * The credit must come from the article record, so every future story gets it
+   * by adding one field. A failure here means someone hardcoded a credit for a
+   * specific page instead.
+   */
+  it("derives the image creator from article data, not a per-slug literal", () => {
+    for (const article of publishedJournalArticles) {
+      const image = articleImage(article.slug);
+      expect("creator" in image, article.slug).toBe(
+        Boolean(article.photographer)
+      );
+      if (article.photographer) {
+        expect(image.creator, article.slug).toEqual({
+          "@type": "Person",
+          name: article.photographer,
+        });
+      }
+    }
+  });
+
+  /**
+   * Search Console warns that these three are missing, and they stay missing on
+   * purpose: nothing in the project records who holds copyright in the
+   * photographs, and there is no page where anyone could license one. Filling
+   * them in to clear the warnings would invent rights metadata about someone
+   * else's work.
+   */
+  it("claims no copyright, license or licensing page it cannot back up", () => {
+    for (const article of publishedJournalArticles) {
+      const image = articleImage(article.slug);
+      for (const field of [
+        "copyrightNotice",
+        "license",
+        "acquireLicensePage",
+      ]) {
+        expect(image, `${article.slug}: ${field}`).not.toHaveProperty(field);
+      }
+    }
+  });
+
+  it("leaves an uncredited photo uncredited", () => {
+    const image = articleImage("what-happens-to-us-when-we-leave-home");
+    expect(image).not.toHaveProperty("creator");
+    expect(image).not.toHaveProperty("creditText");
   });
 
   it("omits the item on the final breadcrumb, per Google", () => {
