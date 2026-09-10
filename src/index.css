@@ -1218,8 +1218,8 @@
   }
 }
 
-/* Hero logo dot color animation (SVG circles) */
-@keyframes hero-dot-color-shift {
+/* Hero logo color animation — heads and bodies together */
+@keyframes hero-mark-color-shift {
   0% {
     fill: #d6455d;
   }
@@ -1241,9 +1241,19 @@
   }
 }
 
-.hero-dot {
-  animation: hero-dot-color-shift 8s ease-in-out infinite;
+/*
+  Set on each figure's <g>, not on the shapes inside it, so a figure's head and
+  body always hold the same color — the children carry no `fill` of their own
+  and inherit the animated value. The trailing figure starts half a cycle in, so
+  the two are never the same color at once and the mark keeps its two-tone read.
+*/
+.hero-figure {
+  animation: hero-mark-color-shift 8s ease-in-out infinite;
   will-change: fill;
+}
+
+.hero-figure--trail {
+  animation-delay: -4s;
 }
 
 .color-dot {
@@ -1256,7 +1266,7 @@
 
 /* Accessibility: Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .hero-dot {
+  .hero-figure {
     animation: none;
   }
 
