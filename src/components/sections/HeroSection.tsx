@@ -31,9 +31,9 @@ const HeroSection = () => {
       <div className="w-full flex flex-col items-center text-center">
         <div className="mb-6">
           <svg
-            width="90"
-            height="52"
-            viewBox="0 0 90 52"
+            width="302"
+            height="247"
+            viewBox="0 0 302 247"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
@@ -41,51 +41,21 @@ const HeroSection = () => {
             className="w-16 h-auto sm:w-24 md:w-32 lg:w-40"
             preserveAspectRatio="xMidYMid meet"
           >
-            <path
-              d="M45.1818 7.99902C45.1818 21 42.6435 44.3949 8.12256 43.9949"
-              stroke="#000000"
-              strokeOpacity="0.8"
-              strokeWidth="13.5"
-              strokeLinecap="round"
-            />
-            <ellipse
-              cx="13.1992"
-              cy="12.9985"
-              rx="13.1992"
-              ry="12.9985"
-              className="hero-dot"
-              fill="#D45A5A"
-              fillOpacity="0.5"
-            />
-            <path
-              d="M45.3735 8.02441C45.3735 21 47.3565 45.395 81.8774 44.995"
-              stroke="#000000"
-              strokeOpacity="0.5"
-              strokeWidth="13.5"
-              strokeLinecap="round"
-            />
-            <ellipse
-              cx="13.1992"
-              cy="12.9985"
-              rx="13.1992"
-              ry="12.9985"
-              transform="matrix(-1 0 0 1 90 0.999512)"
-              className="hero-dot"
-              fill="#D45A5A"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_21_2"
-                x1="51.7641"
-                y1="20.454"
-                x2="86.6226"
-                y2="50.2449"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#A10203" />
-                <stop offset="1" stopColor="#A10203" />
-              </linearGradient>
-            </defs>
+            {/*
+              Two mirrored quotation-mark figures. Each body keeps its brand
+              colour; both heads carry `hero-dot` so they cycle colour the way
+              the previous mark's dots did. Under reduced motion `.hero-dot`
+              drops its animation and each head falls back to inheriting its
+              group's colour.
+            */}
+            <g fill="#343739">
+              <circle cx="68.5" cy="35.5" r="35.5" className="hero-dot" />
+              <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z" />
+            </g>
+            <g fill="#53C29E" transform="translate(302 0) scale(-1 1)">
+              <circle cx="68.5" cy="35.5" r="35.5" className="hero-dot" />
+              <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z" />
+            </g>
           </svg>
         </div>
 
