@@ -42,18 +42,22 @@ const HeroSection = () => {
             preserveAspectRatio="xMidYMid meet"
           >
             {/*
-              Two mirrored quotation-mark figures. Each body keeps its brand
-              colour; both heads carry `hero-dot` so they cycle colour the way
-              the previous mark's dots did. Under reduced motion `.hero-dot`
-              drops its animation and each head falls back to inheriting its
-              group's colour.
+              Two mirrored quotation-mark figures. `hero-figure` cycles colour
+              on the group rather than the shapes, so each figure's head and
+              body move together; `--trail` puts the second half a cycle
+              behind so the two never match. The `fill` attributes are the
+              reduced-motion fallback, where the animation is dropped.
             */}
-            <g fill="#343739">
-              <circle cx="68.5" cy="35.5" r="35.5" className="hero-dot" />
+            <g fill="#343739" className="hero-figure">
+              <circle cx="68.5" cy="35.5" r="35.5" />
               <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z" />
             </g>
-            <g fill="#53C29E" transform="translate(302 0) scale(-1 1)">
-              <circle cx="68.5" cy="35.5" r="35.5" className="hero-dot" />
+            <g
+              fill="#53C29E"
+              className="hero-figure hero-figure--trail"
+              transform="translate(302 0) scale(-1 1)"
+            >
+              <circle cx="68.5" cy="35.5" r="35.5" />
               <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z" />
             </g>
           </svg>
