@@ -44,18 +44,24 @@ const GalleryLightbox: FC<GalleryLightboxProps> = ({
 
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
+    // Hides the fixed corner menu button, which would otherwise show through
+    // this dialog's backdrop and stay clickable underneath it.
+    document.body.classList.add("modal-open");
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
     };
   }, [onClose, goToPrev, goToNext]);
 
   if (!image) return null;
 
   return (
+    // Above `.corner-menu` (z-110), not just the nav overlay it sits over
+    // (z-100) — otherwise the menu button covers this dialog's close button.
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center"
+      className="fixed inset-0 z-[120] flex items-center justify-center"
       role="dialog"
       aria-modal="true"
       aria-label="Gallery image viewer"
