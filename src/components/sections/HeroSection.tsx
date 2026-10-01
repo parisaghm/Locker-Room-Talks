@@ -29,7 +29,7 @@ const HeroSection = () => {
     >
       {/* Dot + Title (NOT constrained by max-w-3xl) */}
       <div className="w-full flex flex-col items-center text-center">
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <svg
             width="302"
             height="247"
@@ -41,13 +41,12 @@ const HeroSection = () => {
             className="w-24 h-auto"
             preserveAspectRatio="xMidYMid meet"
           >
-            {/*
+            NOTE (restore as a JSX comment if uncommenting this block):
               Two mirrored quotation-mark figures. `hero-figure` cycles colour
               on the group rather than the shapes, so each figure's head and
               body move together; `--trail` puts the second half a cycle
               behind so the two never match. The `fill` attributes are the
               reduced-motion fallback, where the animation is dropped.
-            */}
             <g fill="#343739" className="hero-figure">
               <circle cx="68.5" cy="35.5" r="35.5" />
               <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z" />
@@ -61,7 +60,7 @@ const HeroSection = () => {
               <path d="M132 87L63 87C28.2 87 0 116 0 150C0 216.5 61.6 246.5 133 246.5C108 231.5 81.5 198 83 185.5L111 185.5Q120.3 185.5 132 168.5Z" />
             </g>
           </svg>
-        </div>
+        </div> */}
 
         {/* Title block with video mask */}
         <div className="relative mb-6 px-4">
