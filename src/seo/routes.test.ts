@@ -46,6 +46,7 @@ const PLACEHOLDER_SLUGS = [
 const PUBLISHED_SLUGS = [
   "what-does-it-mean-to-belong",
   "what-happens-to-us-when-we-leave-home",
+  "what-if-integration-is-not-the-end-of-the-story",
 ];
 
 describe("route coverage", () => {
@@ -74,7 +75,7 @@ describe("route coverage", () => {
 });
 
 describe("indexing policy", () => {
-  it("indexes exactly the six real pages", () => {
+  it("indexes exactly the seven real pages", () => {
     expect(
       routes.filter((r) => r.robots === "index").map((r) => r.path).sort()
     ).toEqual(
@@ -156,8 +157,8 @@ describe("internal link graph", () => {
 describe("sitemap", () => {
   const inSitemap = routes.filter((r) => r.sitemap !== false);
 
-  it("contains exactly six URLs", () => {
-    expect(inSitemap).toHaveLength(6);
+  it("contains exactly seven URLs", () => {
+    expect(inSitemap).toHaveLength(7);
   });
 
   it("carries a content-derived lastmod, never a build timestamp", () => {
@@ -368,7 +369,7 @@ describe("structured data", () => {
     const collection = byPath("/journal").jsonLd[0] as {
       mainEntity: { itemListElement: Array<{ url: string }> };
     };
-    expect(collection.mainEntity.itemListElement).toHaveLength(2);
+    expect(collection.mainEntity.itemListElement).toHaveLength(3);
     for (const item of collection.mainEntity.itemListElement) {
       expect(PLACEHOLDER_SLUGS.some((s) => item.url.includes(s))).toBe(false);
     }

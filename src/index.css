@@ -940,6 +940,44 @@
     max-width: 100%;
   }
 
+  /*
+   * Optional pair: the guest writing beside the note itself. Stacked on
+   * phones; side by side from 640px, where each figure's flex-grow (set from
+   * its own aspect ratio) gives both images one shared height.
+   */
+  .article-after-conversation-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: var(--article-pause);
+  }
+
+  .article-after-conversation-pair > .article-after-conversation-figure {
+    margin: 0;
+    min-width: 0;
+  }
+
+  @media (max-width: 639px) {
+    /* Stacked: ignore the ratio-derived inline flex-grow. */
+    .article-after-conversation-pair > .article-after-conversation-figure {
+      flex: none !important;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .article-after-conversation-pair {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    /* flex-grow comes from the inline style; only basis and shrink here. */
+    .article-after-conversation-pair > .article-after-conversation-figure {
+      flex-basis: 0;
+      flex-shrink: 1;
+    }
+  }
+
   .article-after-conversation-note {
     margin: 1.6rem auto 0;
     max-width: 34.5rem;

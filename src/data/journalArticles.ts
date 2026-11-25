@@ -1,5 +1,6 @@
 import { hopeMakaraArticle } from "@/content/journal/hope-makara";
 import { asmaraRiazArticle } from "@/content/journal/asmara-riaz";
+import { mariiJuhtArticle } from "@/content/journal/marii-juht";
 
 export type ArticleContentBlock =
   | { type: "paragraph"; text: string }
@@ -26,6 +27,16 @@ export type ArticleContentBlock =
       label?: string;
       intro?: string;
       image: {
+        src: string;
+        alt: string;
+        caption?: string;
+        monochrome?: boolean;
+      };
+      /**
+       * Optional second photograph, shown beside `image` — for stories whose
+       * handwritten note was photographed separately from the guest writing it.
+       */
+      noteImage?: {
         src: string;
         alt: string;
         caption?: string;
@@ -92,6 +103,7 @@ export const journalCategories = [
 export const journalArticles: JournalArticle[] = [
   hopeMakaraArticle,
   asmaraRiazArticle,
+  mariiJuhtArticle,
   {
     id: "home-is-a-conversation",
     slug: "home-is-a-conversation",
