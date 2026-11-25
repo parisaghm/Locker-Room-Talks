@@ -189,6 +189,7 @@ const ArticleBody = ({ content }: ArticleBodyProps) => {
                 label={block.label}
                 intro={block.intro}
                 image={block.image}
+                noteImage={block.noteImage}
                 note={block.note}
               />
             );

@@ -25,6 +25,7 @@ const SHOW_CATEGORY_FILTERS: boolean = false;
 const LAUNCH_ARTICLE_SLUGS = [
   "what-does-it-mean-to-belong",
   "what-happens-to-us-when-we-leave-home",
+  "what-if-integration-is-not-the-end-of-the-story",
 ];
 
 const Journal = () => {
